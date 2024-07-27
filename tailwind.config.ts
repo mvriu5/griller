@@ -2,8 +2,8 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/component/griller.tsx",
-    "./src/component/griller.stories.tsx"
+    "./src/**/*.tsx",
+    "./src/**/*.stories.tsx"
   ],
   theme: {
     extend: {

@@ -100,7 +100,7 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
     return (
         <>
             {animate &&
-                <div className={cn("fixed z-50 shadow-lg transition-all duration-500 ease-in-out opacity-0", {
+                <div className={cn("fixed z-50 drop-shadow-2xl rounded-lg transition-all duration-500 ease-in-out opacity-0", {
                     "top-4 right-4 -translate-y-full": placement === "tr",
                     "top-4 left-4 -translate-y-full": placement === "tl",
                     "top-4 left-1/2 -translate-y-full": placement === "tc",
@@ -113,7 +113,7 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
                 >
 
                     <div className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg", className)}
-                         style={color ? { backgroundColor: color } : { backgroundColor: rgb(228, 228, 231) }}
+                         style={color ? { backgroundColor: color } : { backgroundColor: rgb(244, 244, 245) }}
                          {...props}
                     >
                         <div className={"flex flex-row items-center space-x-4"}>
