@@ -22,16 +22,15 @@ export const Default: Story = {
 
         return (
             <>
-                <button title={"Button"}
-                        className={"bg-amber-600"}
-                        onClick={() => grillerRef.current?.show()}
+                <div className={"bg-amber-600 w-20 h-20"}
+                    onClick={() => grillerRef.current?.show()}
                 />
 
-                <Griller title={"Alert Title"}
-                         secondTitle={"This is a second title"}
-                         icon={<TriangleAlert size={24} className={"text-zinc-700"}/>}
-                         placement={"tr"}
+                <Griller title={"Alert Title tile eemelm ltmelmemtletlme"}
+                         secondTitle={"This is a second title wbjgb jg"}
+                         icon={<TriangleAlert size={24}/>}
                          closeButton={true}
+                         placement={"tl"}
                          ref={grillerRef}
                 />
             </>
