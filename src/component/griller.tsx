@@ -13,7 +13,6 @@ interface GrillerProps extends HTMLAttributes<HTMLDivElement> {
     color?: string;
     closeButton?: boolean;
     duration?: number;
-    closeSize?: number;
     titleClassname?: string;
     secondTitleClassname?: string;
     iconClassname?: string;
@@ -29,7 +28,7 @@ type GrillerRef =  {
 };
 
 const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon, placement, closeButton, duration,
-                                                          closeSize, color, titleClassname, secondTitleClassname,
+                                                          color, titleClassname, secondTitleClassname,
                                                           closeClassname, closeDivClassname, outerClassname, iconClassname,
                                                           className, ...props }, ref) => {
     const [visible, setVisible] = useState(false);
@@ -130,7 +129,7 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
                             <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-300", closeDivClassname)}
                                  onClick={() => close()}
                             >
-                                <X size={closeSize ?? 16} className={cn("text-zinc-500", closeClassname)}/>
+                                <X size={16} className={cn("text-zinc-500", closeClassname)}/>
                             </div>
                         }
                     </div>
