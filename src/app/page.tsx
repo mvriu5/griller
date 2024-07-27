@@ -56,7 +56,6 @@ export default function Home() {
                         className={"flex flex-row space-x-2 items-center text-zinc-500 px-3 py-1 rounded-lg cursor-pointer hover:bg-zinc-100"}
                         onClick={() => window.location.href = 'https://github.com/mvriu5/griller'}
                     >
-                        <span className={"text-sm font-medium"}>Code</span>
                         <Github/>
                     </div>
                 </div>
@@ -193,6 +192,14 @@ export default function Home() {
                     <Button title={"Branch"}
                             onClick={() => {
                                 setValues(prevProps => ({...prevProps, icon: <GitBranch size={24}/>}))
+                                grillerRef.current?.show();
+                            }}
+                    />
+                    <Button title={""}
+                            icon={<Ban size={16}/>}
+                            className={"py-2"}
+                            onClick={() => {
+                                setValues(prevProps => ({...prevProps, icon: undefined}))
                                 grillerRef.current?.show();
                             }}
                     />

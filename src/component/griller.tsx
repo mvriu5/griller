@@ -102,7 +102,7 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
     return (
         <>
             {animate &&
-                <div className={cn("fixed z-50 drop-shadow-2xl rounded-lg transition-all duration-500 ease-in-out opacity-0", {
+                <div className={cn("fixed z-50 shadow-lg shadow-zinc-300 rounded-lg transition-all duration-500 ease-in-out opacity-0", {
                     "top-4 right-4 -translate-y-full": position === "tr",
                     "top-4 left-4 -translate-y-full": position === "tl",
                     "top-4 left-1/2 -translate-y-full": position === "tc",
@@ -114,21 +114,21 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
                      ref={grillerRef}
                 >
 
-                    <div className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg", className)}
-                         style={color ? { backgroundColor: color } : { backgroundColor: rgb(244, 244, 245) }}
+                    <div className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg border border-zinc-200", className)}
+                         style={color ? { backgroundColor: color } : { backgroundColor: rgb(250, 250, 250) }}
                          {...props}
                     >
-                        <div className={"flex flex-row items-center space-x-4"}>
+                        <div className={"flex flex-row items-center"}>
                             <div className={cn("text-zinc-700", iconClassname)}>
                                 {icon}
                             </div>
-                            <div className={"flex flex-col max-w-60"}>
+                            <div className={cn("flex flex-col max-w-60", icon && "ml-4")}>
                                 <span className={cn("text-sm text-zinc-700 font-medium text-nowrap truncate", titleClassname)}>{title}</span>
                                 {secondTitle && <span className={cn("text-xs text-zinc-500", secondTitleClassname)}>{secondTitle}</span>}
                             </div>
                         </div>
                         {closeButton &&
-                            <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-300", closeDivClassname)}
+                            <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-100", closeDivClassname)}
                                  onClick={() => close()}
                             >
                                 <X size={16} className={cn("text-zinc-500", closeClassname)}/>
