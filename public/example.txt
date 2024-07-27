@@ -1,0 +1,13 @@
+import {Griller} from "griller"
+
+const grillerRef = useRef<GrillerRef>(null);
+
+<Griller title={"Alert Title"}
+         secondTitle={"This is a second title"}
+         icon={<TriangleAlert size={24}/>}
+         duration={3000}
+         placement={"tl"}
+         ref={grillerRef}
+/>
+
+<button onClick={() => grillerRef.current?.show()}/>
