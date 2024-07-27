@@ -30,7 +30,7 @@ export const Default: Story = {
                          secondTitle={"This is a second title wbjgb jg"}
                          icon={<TriangleAlert size={24}/>}
                          closeButton={true}
-                         placement={"tl"}
+                         position={"tl"}
                          ref={grillerRef}
                 />
             </>

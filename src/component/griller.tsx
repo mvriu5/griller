@@ -5,11 +5,13 @@ import {cn} from "@/lib/utlis";
 import {X} from "lucide-react";
 import {rgb} from "polished";
 
+type Position = "tr" | "tl" | "tc" | "br" | "bl" | "bc";
+
 interface GrillerProps extends HTMLAttributes<HTMLDivElement> {
     title: string;
     secondTitle?: string;
     icon?: ReactNode;
-    placement?: "tr" | "tl" | "tc" | "br" | "bl" | "bc";
+    position?: Position;
     color?: string;
     closeButton?: boolean;
     duration?: number;
@@ -27,7 +29,7 @@ type GrillerRef =  {
     current: HTMLDivElement | null;
 };
 
-const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon, placement, closeButton, duration,
+const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon, position, closeButton, duration,
                                                           color, titleClassname, secondTitleClassname,
                                                           closeClassname, closeDivClassname, outerClassname, iconClassname,
                                                           className, ...props }, ref) => {
@@ -71,10 +73,10 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
 
     const close = () => {
         if (grillerRef.current) {
-            if (placement === "bl" || placement === "bc" || placement === "br" || !placement) {
+            if (position === "bl" || position === "bc" || position === "br" || !position) {
                 grillerRef.current.classList.remove('opacity-100', 'translate-y-0');
                 grillerRef.current.classList.add('opacity-0', 'translate-y-full');
-            } else if (placement === "tl" || placement === "tc" || placement === "tr") {
+            } else if (position === "tl" || position === "tc" || position === "tr") {
                 grillerRef.current.classList.remove('opacity-100', '-translate-y-0');
                 grillerRef.current.classList.add('opacity-0', '-translate-y-full');
             }
@@ -87,10 +89,10 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
 
     const open = () => {
         if (grillerRef.current) {
-            if (placement === "bl" || placement === "bc" || placement === "br" || !placement) {
+            if (position === "bl" || position === "bc" || position === "br" || !position) {
                 grillerRef.current.classList.add('opacity-100', 'translate-y-0');
                 grillerRef.current.classList.remove('opacity-0', 'translate-y-full');
-            } else if (placement === "tl" || placement === "tc" || placement === "tr") {
+            } else if (position === "tl" || position === "tc" || position === "tr") {
                 grillerRef.current.classList.add('opacity-100', '-translate-y-0');
                 grillerRef.current.classList.remove('opacity-0', '-translate-y-full');
             }
@@ -100,33 +102,33 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
     return (
         <>
             {animate &&
-                <div className={cn("fixed z-50 shadow-lg transition-all duration-500 ease-in-out opacity-0", {
-                    "top-4 right-4 -translate-y-full": placement === "tr",
-                    "top-4 left-4 -translate-y-full": placement === "tl",
-                    "top-4 left-1/2 -translate-y-full": placement === "tc",
-                    "bottom-4 right-4 translate-y-full": !placement || placement === "br",
-                    "bottom-4 left-4 translate-y-full": placement === "bl",
-                    "bottom-4 left-1/2 translate-y-full": placement === "bc",
+                <div className={cn("fixed z-50 shadow-lg shadow-zinc-300 rounded-lg transition-all duration-500 ease-in-out opacity-0", {
+                    "top-4 right-4 -translate-y-full": position === "tr",
+                    "top-4 left-4 -translate-y-full": position === "tl",
+                    "top-4 left-1/2 -translate-y-full": position === "tc",
+                    "bottom-4 right-4 translate-y-full": !position || position === "br",
+                    "bottom-4 left-4 translate-y-full": position === "bl",
+                    "bottom-4 left-1/2 translate-y-full": position === "bc",
                 }, outerClassname)}
-                     style={placement === "tc" || placement === "bc" ? { marginLeft: `-${width / 2}px` } : {}}
+                     style={position === "tc" || position === "bc" ? { marginLeft: `-${width / 2}px` } : {}}
                      ref={grillerRef}
                 >
 
-                    <div className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg", className)}
-                         style={color ? { backgroundColor: color } : { backgroundColor: rgb(228, 228, 231) }}
+                    <div className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg border border-zinc-200", className)}
+                         style={color ? { backgroundColor: color } : { backgroundColor: rgb(250, 250, 250) }}
                          {...props}
                     >
-                        <div className={"flex flex-row items-center space-x-4"}>
+                        <div className={"flex flex-row items-center"}>
                             <div className={cn("text-zinc-700", iconClassname)}>
                                 {icon}
                             </div>
-                            <div className={"flex flex-col max-w-60"}>
+                            <div className={cn("flex flex-col max-w-60", icon && "ml-4")}>
                                 <span className={cn("text-sm text-zinc-700 font-medium text-nowrap truncate", titleClassname)}>{title}</span>
                                 {secondTitle && <span className={cn("text-xs text-zinc-500", secondTitleClassname)}>{secondTitle}</span>}
                             </div>
                         </div>
                         {closeButton &&
-                            <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-300", closeDivClassname)}
+                            <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-100", closeDivClassname)}
                                  onClick={() => close()}
                             >
                                 <X size={16} className={cn("text-zinc-500", closeClassname)}/>
@@ -141,5 +143,5 @@ const Griller = forwardRef<GrillerRef, GrillerProps>(({title, secondTitle, icon,
 Griller.displayName = "Griller";
 
 export {Griller};
-export type { GrillerRef };
+export type { GrillerRef, Position };
 
