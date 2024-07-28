@@ -35,7 +35,7 @@ export default function Home() {
                 </div>
 
                 <div
-                    className={"flex flex-row space-x-2 items-center text-zinc-500 px-3 py-1 rounded-lg cursor-pointer hover:bg-zinc-100"}
+                    className={"flex flex-row space-x-2 items-center text-zinc-500 p-2 rounded-lg cursor-pointer hover:bg-zinc-100"}
                     onClick={() => window.location.href = 'https://github.com/mvriu5/griller'}
                 >
                     <Github/>
@@ -162,7 +162,8 @@ export default function Home() {
                             icon: <ShieldAlert size={24}/>,
                             title: 'Toast Notification',
                             secondTitle: 'This is the second toast title',
-                            closeButton: true
+                            closeButton: true,
+                            duration: 60000
                         })}
                 />
                 <Button title={""}
@@ -172,15 +173,6 @@ export default function Home() {
                             icon: <ShieldAlert size={24}/>,
                             title: 'Toast Notification',
                             secondTitle: 'This is the second toast title',
-                            closeButton: false
-                        })}
-                />
-                <Button title={"Without Duration"}
-                        onClick={() => addToast({
-                            icon: <ShieldAlert size={24}/>,
-                            title: 'Toast Notification',
-                            secondTitle: 'This is the second toast title',
-                            duration: undefined,
                             closeButton: false
                         })}
                 />

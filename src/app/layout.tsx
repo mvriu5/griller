@@ -14,11 +14,11 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
   return (
       <html lang="en">
           <body className={inter.className}>
-              <Toaster>
-                  <div className={"w-screen h-screen flex flex-col px-80 py-32 bg-white"}>
-                      {children}
-                  </div>
-              </Toaster>
+              <div className={"w-screen h-screen flex flex-col px-80 py-32 bg-white"}>
+                  <Toaster>
+                    {children}
+                  </Toaster>
+              </div>
           </body>
       </html>
   );

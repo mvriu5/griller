@@ -2,6 +2,7 @@
 
 import React, {createContext, ReactNode, useCallback, useContext, useState} from 'react';
 import {Toast, ToastProps} from './toast';
+import {AnimatePresence} from "framer-motion";
 
 interface ToastContextType {
     addToast: (props: Omit<ToastProps, 'id'>) => string;
@@ -40,10 +41,15 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
     return (
         <ToastContext.Provider value={{ addToast, removeToast }}>
             {children}
-            <div className="fixed inset-0 pointer-events-none flex flex-col items-end justify-end p-4 gap-2 z-50">
+            <div className="fixed p-4 z-50">
+                <AnimatePresence>
                 {toasts.map((toast) => (
-                    <Toast key={toast.id} {...toast} removeToast={removeToast}/>
+                    <Toast key={toast.id}
+                           removeToast={removeToast}
+                           {...toast}
+                    />
                 ))}
+                </AnimatePresence>
             </div>
         </ToastContext.Provider>
     );
