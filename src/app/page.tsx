@@ -49,7 +49,7 @@ export default function Home() {
             <div className={"flex flex-row justify-between pb-8"}>
                 <div className={"flex flex-row space-x-2"}>
                     <Button title={"Test"}
-                            icon={<FlaskConical size={16} className={"mr-2"}/>}
+                            icon={<FlaskConical size={15} className={"mr-2"}/>}
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
@@ -63,7 +63,7 @@ export default function Home() {
                 </div>
 
                 <div
-                    className={"flex flex-row space-x-8 items-center bg-zinc-50 px-3 py-1 text-zinc-500 rounded-lg border border-zinc-200"}>
+                    className={"flex flex-row space-x-8 items-center bg-zinc-50 px-2 py-1 text-zinc-500 rounded-lg border border-zinc-200"}>
                     <span className={"font-mono"}>npm install griller</span>
                     <CopyButton copyText={"npm install griller"}/>
                 </div>
