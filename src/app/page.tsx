@@ -11,7 +11,7 @@ import {
     SquareArrowOutUpRight,
     TriangleAlert
 } from "lucide-react";
-import {Griller, GrillerRef, Position} from "@/component/griller";
+import {Toast, GrillerRef, Position} from "@/component/toast";
 import {ReactNode, useRef, useState} from "react";
 import {CodeBlock} from "@/lib/codeblock";
 import {CopyButton} from "@/lib/copybutton";
@@ -207,13 +207,13 @@ export default function Home() {
 
             </div>
 
-            <Griller title={values.title}
-                     secondTitle={values.secondTitle ?? undefined}
-                     icon={values.icon ?? undefined}
-                     duration={values.duration ?? undefined}
-                     closeButton={values.closeButton}
-                     position={values.position as Position}
-                     ref={grillerRef}
+            <Toast title={values.title}
+                   secondTitle={values.secondTitle ?? undefined}
+                   icon={values.icon ?? undefined}
+                   duration={values.duration ?? undefined}
+                   closeButton={values.closeButton}
+                   position={values.position as Position}
+                   ref={grillerRef}
             />
         </>
     );
