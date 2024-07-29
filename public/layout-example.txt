@@ -1,0 +1,13 @@
+import {Toaster} from "griller/toaster";
+
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <Toaster>
+                    {children}
+                </Toaster>
+            </body>
+        </html>
+    );
+}

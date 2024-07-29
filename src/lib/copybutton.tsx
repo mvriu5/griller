@@ -21,7 +21,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ copyText, className, ...props }
                     navigator.clipboard.writeText(copyText);
                 }}
         >
-            {isChecked ? <Check size={16}/> : <Clipboard size={14}/>}
+            {isChecked ? <Check size={14}/> : <Clipboard size={14}/>}
         </button>
     );
 }

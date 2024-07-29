@@ -1,8 +1,8 @@
 "use client";
 
-import React, {createContext, ReactNode, useCallback, useContext, useState} from 'react';
-import {Toast, ToastProps} from './toast';
-import {AnimatePresence} from "framer-motion";
+import React, {createContext, ReactNode, useCallback, useContext, useMemo, useState} from 'react';
+import {Position, Toast, ToastProps} from './toast';
+import {AnimatePresence, motion} from "framer-motion";
 
 interface ToastContextType {
     addToast: (props: Omit<ToastProps, 'id'>) => string;
@@ -38,14 +38,40 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
         setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
     }, []);
 
+    const groupedToasts = useMemo(() => {
+        return toasts.reduce((acc, toast) => {
+            const position = toast.position || 'br';
+            if (!acc[position]) acc[position] = [];
+            acc[position].push(toast);
+            return acc;
+        }, {} as Record<Position, ToastProps[]>);
+    }, [toasts]);
+
+    const positionClasses = {
+        'tr': 'top-4 right-4',
+        'tl': 'top-4 left-4',
+        'tc': 'top-4 left-1/2 transform -translate-x-1/2',
+        'br': 'bottom-4 right-4',
+        'bl': 'bottom-4 left-4',
+        'bc': 'bottom-4 left-1/2 transform -translate-x-1/2',
+    };
+
     return (
         <ToastContext.Provider value={{ addToast, removeToast }}>
             {children}
-            {toasts.map((toast) => (
-                <Toast key={toast.id}
-                       removeToast={removeToast}
-                       {...toast}
-                />
+            {Object.entries(groupedToasts).map(([position, positionToasts]) => (
+                <motion.div
+                    key={position}
+                    className={`fixed z-50 flex flex-col -space-y-12 hover:space-y-4 ${positionClasses[position]}`}
+                >
+                    <AnimatePresence>
+                        {positionToasts.map((toast) => (
+                            <motion.div key={toast.id}>
+                                <Toast key={toast.id} removeToast={removeToast} {...toast} />
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
             ))}
         </ToastContext.Provider>
     );

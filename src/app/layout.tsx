@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/component/toaster";
+import React, {ReactNode} from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,11 +11,11 @@ export const metadata: Metadata = {
   description: "A React Toast Component",
 };
 
-export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
+export default function RootLayout({children}: Readonly<{ children: ReactNode }>) {
   return (
       <html lang="en">
           <body className={inter.className}>
-              <div className={"w-screen h-screen flex flex-col px-80 py-32 bg-white"}>
+              <div className={"w-screen h-max flex flex-col px-96 py-32 bg-white"}>
                   <Toaster>
                     {children}
                   </Toaster>

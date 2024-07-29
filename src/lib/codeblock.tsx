@@ -5,15 +5,16 @@ import {CopyButton} from "@/lib/copybutton";
 
 interface CodeBockProps extends HTMLAttributes<HTMLDivElement> {
     title?: string;
+    fileName: string;
     filePath: string;
 }
 
-const CodeBlock: React.FC<CodeBockProps> = ({ title, filePath, className, ...props }) => {
+const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath, className, ...props }) => {
     const [fileContent, setFileContent] = useState('');
     const [lineCount, setLineCount] = useState(0);
 
     useEffect(() => {
-        fetch('/example.txt')
+        fetch(filePath)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -31,18 +32,23 @@ const CodeBlock: React.FC<CodeBockProps> = ({ title, filePath, className, ...pro
     return (
         <div className={"flex flex-col space-y-2"}>
             {title && <span className={"text-sm text-zinc-700 font-medium"}>{title}</span>}
-            <div className={"flex flex-row w-full h-max p-2 bg-zinc-50 rounded-lg border border-zinc-200"}>
-                <textarea className={"w-full h-full font-mono text-sm text-zinc-500 bg-zinc-50 overflow-hidden resize-none focus:outline-none"}
-                          value={fileContent}
-                          rows={lineCount}
-
-                          readOnly
-                />
-                <CopyButton copyText={fileContent}/>
+            <div className={"flex flex-row justify-between w-full h-max bg-zinc-50 rounded-lg border border-zinc-200"}>
+                <div className={"w-full flex flex-col"}>
+                    <div className={"flex flex-row justify-between items-center px-2 py-1 bg-zinc-100 border-b border-zinc-200 rounded-t-lg"}>
+                        <span className={"text-zinc-500 text-xs"}>{fileName}</span>
+                        <CopyButton copyText={fileContent}/>
+                    </div>
+                     <textarea
+                         className={"p-2 w-full h-full font-mono text-sm text-zinc-500 bg-zinc-50 overflow-hidden resize-none focus:outline-none rounded-b-lg"}
+                         value={fileContent}
+                         rows={lineCount}
+                         readOnly
+                     />
+                </div>
             </div>
 
         </div>
     );
 }
 
-export { CodeBlock };
+export {CodeBlock};

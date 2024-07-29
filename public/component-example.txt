@@ -1,0 +1,5 @@
+import {Toast} from "griller/toast";
+
+<button onClick={() =>
+    addToast({title: 'Toast Notification'})}
+</button>

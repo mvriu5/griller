@@ -70,7 +70,12 @@ export default function Home() {
             </div>
 
             <CodeBlock title={"Code Example"}
-                       filePath={"/example.txt"}
+                       fileName={"layout.tsx"}
+                       filePath={"/layout-example.txt"}
+            />
+
+            <CodeBlock fileName={"component.tsx"}
+                       filePath={"/component-example.txt"}
             />
 
             <div className={"flex flex-row space-x-2 items-center pt-8"}>

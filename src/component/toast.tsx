@@ -32,12 +32,13 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
 
     const [visible, setVisible] = useState(true);
     const [width, setWidth] = useState<number>(0);
-
+    const [height, setHeight] = useState<number>(0);
     const toastRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (toastRef.current) {
             setWidth(toastRef.current.offsetWidth);
+            setHeight(toastRef.current.offsetHeight);
         }
     }, [visible]);
 
@@ -77,7 +78,7 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
                     exit="exit"
                     variants={variants}
                     transition={{duration: 0.5,}}
-                    className={cn("fixed z-50 shadow-xs shadow-zinc-900 rounded-lg", positionClasses[position], motionClassname)}
+                    className={cn("shadow-xs shadow-zinc-900 rounded-lg", positionClasses[position], motionClassname)}
                     style={position === "tc" || position === "bc" ? { marginLeft: `-${width / 2}px` } : {}}
                 >
                     <div
