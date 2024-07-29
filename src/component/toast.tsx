@@ -1,6 +1,6 @@
 "use client";
 
-import React, {HTMLAttributes, ReactNode, useEffect, useState} from "react";
+import React, {HTMLAttributes, ReactNode, useEffect, useRef, useState} from "react";
 import {cn} from "@/lib/utlis";
 import {X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
@@ -31,6 +31,15 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
          className, removeToast, ...props }) => {
 
     const [visible, setVisible] = useState(true);
+    const [width, setWidth] = useState<number>(0);
+
+    const toastRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (toastRef.current) {
+            setWidth(toastRef.current.offsetWidth);
+        }
+    }, [visible]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -62,12 +71,14 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
             {visible && (
                 <motion.div
                     key={id}
+                    ref={toastRef}
                     initial="initial"
                     animate="animate"
                     exit="exit"
                     variants={variants}
                     transition={{duration: 0.5,}}
                     className={cn("fixed z-50 shadow-xs shadow-zinc-900 rounded-lg", positionClasses[position], motionClassname)}
+                    style={position === "tc" || position === "bc" ? { marginLeft: `-${width / 2}px` } : {}}
                 >
                     <div
                         className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg border border-zinc-200", className)}
@@ -81,10 +92,8 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
                                 </div>
                             )}
                             <div className={cn("flex flex-col max-w-60", icon && "ml-4")}>
-                                    <span
-                                        className={cn("text-sm text-zinc-700 font-medium text-nowrap truncate", titleClassname)}>{title}</span>
-                                {secondTitle && (
-                                    <span className={cn("text-xs text-zinc-500", secondTitleClassname)}>{secondTitle}</span>)}
+                                <span className={cn("text-sm text-zinc-700 font-medium text-nowrap truncate", titleClassname)}>{title}</span>
+                                {secondTitle && (<span className={cn("text-xs text-zinc-500", secondTitleClassname)}>{secondTitle}</span>)}
                             </div>
                         </div>
                         {closeButton && (
