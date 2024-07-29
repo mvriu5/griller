@@ -41,16 +41,12 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
     return (
         <ToastContext.Provider value={{ addToast, removeToast }}>
             {children}
-            <div className="fixed p-4 z-50">
-                <AnimatePresence>
-                {toasts.map((toast) => (
-                    <Toast key={toast.id}
-                           removeToast={removeToast}
-                           {...toast}
-                    />
-                ))}
-                </AnimatePresence>
-            </div>
+            {toasts.map((toast) => (
+                <Toast key={toast.id}
+                       removeToast={removeToast}
+                       {...toast}
+                />
+            ))}
         </ToastContext.Provider>
     );
 };
