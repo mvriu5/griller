@@ -1,7 +1,7 @@
 "use client";
 
-import React, {createContext, ReactNode, useCallback, useContext, useMemo, useState} from 'react';
-import {Position, Toast, ToastProps} from './toast';
+import React, {createContext, ReactNode, useCallback, useContext, useMemo, useRef, useState} from 'react';
+import {Position, positionClasses, Toast, ToastProps} from './toast';
 import {AnimatePresence, motion} from "framer-motion";
 
 interface ToastContextType {
@@ -25,8 +25,9 @@ interface ToasterProps {
 
 export const Toaster: React.FC<ToasterProps> = ({ children }) => {
     const [toasts, setToasts] = useState<ToastProps[]>([]);
+    const [isPaused, setIsPaused] = useState(false);
 
-    console.log(toasts)
+    const toastRef = useRef<HTMLDivElement>(null);
 
     const addToast = useCallback((props: Omit<ToastProps, 'id'>) => {
         const id = Math.random().toString(36).substr(2, 9);
@@ -47,13 +48,27 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
         }, {} as Record<Position, ToastProps[]>);
     }, [toasts]);
 
-    const positionClasses = {
-        'tr': 'top-4 right-4',
-        'tl': 'top-4 left-4',
-        'tc': 'top-4 left-1/2 transform -translate-x-1/2',
-        'br': 'bottom-4 right-4',
-        'bl': 'bottom-4 left-4',
-        'bc': 'bottom-4 left-1/2 transform -translate-x-1/2',
+    const isTopPositioned =  (position: string) => {
+        return ['tr', 'tl', 'tc'].includes(position);
+    }
+
+    const containerVariants = {
+        initial: {
+        },
+        hover: {
+        }
+    };
+
+    const childVariants = {
+        initial: (position: Position) => ({
+            marginTop: isTopPositioned(position) ? '0' : '-3rem',
+            marginBottom: isTopPositioned(position) ? '-3rem' : '0',
+            transition: { duration: 0.3 }
+        }),
+        hover: (position: Position) => ({
+            marginTop: isTopPositioned(position) ? '-1rem' : '1rem',
+            transition: { duration: 0.3 }
+        })
     };
 
     return (
@@ -62,12 +77,25 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
             {Object.entries(groupedToasts).map(([position, positionToasts]) => (
                 <motion.div
                     key={position}
-                    className={`fixed z-50 flex flex-col -space-y-12 hover:space-y-4 ${positionClasses[position]}`}
+                    className={`fixed z-50 flex flex-col ${positionClasses(position as Position)}`}
+                    variants={containerVariants}
+                    initial="initial"
+                    whileHover="hover"
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
                 >
                     <AnimatePresence>
                         {positionToasts.map((toast) => (
-                            <motion.div key={toast.id}>
-                                <Toast key={toast.id} removeToast={removeToast} {...toast} />
+                            <motion.div
+                                key={toast.id}
+                                variants={childVariants}
+                                custom={{ position }}
+                            >
+                                <Toast key={toast.id}
+                                       removeToast={removeToast}
+                                       isPaused={isPaused}
+                                       {...toast}
+                                />
                             </motion.div>
                         ))}
                     </AnimatePresence>

@@ -5,8 +5,19 @@ import {cn} from "@/lib/utlis";
 import {X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {remove} from "@jridgewell/set-array";
+import {position} from "polished";
 
 type Position = "tr" | "tl" | "tc" | "br" | "bl" | "bc";
+
+export const positionClasses = (position: Position) => {
+    if (position === 'tr') return `top-16 right-4`;
+    if (position === 'tl') return `top-16 left-4`;
+    if (position === 'tc') return `top-16 left-1/2 transform -translate-x-1/2`;
+    if (position === 'br') return 'bottom-4 right-4';
+    if (position === 'bl') return 'bottom-4 left-4';
+    if (position === 'bc') return 'bottom-4 left-1/2 transform -translate-x-1/2';
+    return '';
+}
 
 interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     id: string;
@@ -25,15 +36,19 @@ interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     motionClassname?: string;
 }
 
-const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
-    ({id, title, secondTitle, icon, position = "br", closeButton, duration = 3000, color, titleClassname,
+const Toast: React.FC<ToastProps & {
+    removeToast: (id: string) => void,
+    isPaused: boolean,
+}> = ({id, title, secondTitle, icon, position = "br", closeButton, duration = 3000, color, titleClassname,
          secondTitleClassname, closeClassname, closeDivClassname, motionClassname, iconClassname,
-         className, removeToast, ...props }) => {
+         className, removeToast, isPaused, ...props }) => {
 
     const [visible, setVisible] = useState(true);
     const [width, setWidth] = useState<number>(0);
     const [height, setHeight] = useState<number>(0);
     const toastRef = useRef<HTMLDivElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const remainingTimeRef = useRef<number>(duration);
 
     useEffect(() => {
         if (toastRef.current) {
@@ -43,28 +58,40 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
     }, [visible]);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setVisible(false);
-        }, duration);
+        let startTime: number;
 
-        return () => clearTimeout(timer);
-    }, [duration]);
+        const tick = () => {
+            if (!isPaused) {
+                const now = Date.now();
+                remainingTimeRef.current -= now - startTime;
+                startTime = now;
 
-    const positionClasses = {
-        'tr': 'top-4 right-4',
-        'tl': 'top-4 left-4',
-        'tc': 'top-4 left-1/2 transform -translate-x-1/2',
-        'br': 'bottom-4 right-4',
-        'bl': 'bottom-4 left-4',
-        'bc': 'bottom-4 left-1/2 transform -translate-x-1/2',
-    };
+                if (remainingTimeRef.current <= 0) {
+                    setVisible(false);
+                } else {
+                    timeoutRef.current = setTimeout(tick, 100); // Check every 100ms
+                }
+            } else {
+                timeoutRef.current = setTimeout(tick, 100);
+            }
+        };
+
+        startTime = Date.now();
+        timeoutRef.current = setTimeout(tick, 100);
+
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, [duration, isPaused]);
 
     const isTopPositioned = ['tr', 'tl', 'tc'].includes(position);
 
     const variants = {
-        initial: { opacity: 0, y: isTopPositioned ? '-120%' : '100%' },
+        initial: { opacity: 0, y: isTopPositioned ? '-120%' : '120%' },
         animate: { opacity: 1, y: 0 },
-        exit: { opacity: 0, y: isTopPositioned ? '-120%' : '100%' }
+        exit: { opacity: 0, y: isTopPositioned ? '-120%' : '120%' }
     };
 
     return (
@@ -78,7 +105,7 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
                     exit="exit"
                     variants={variants}
                     transition={{duration: 0.5,}}
-                    className={cn("shadow-xs shadow-zinc-900 rounded-lg", positionClasses[position], motionClassname)}
+                    className={cn("shadow-xs shadow-zinc-900 rounded-lg", positionClasses(position), motionClassname)}
                     style={position === "tc" || position === "bc" ? { marginLeft: `-${width / 2}px` } : {}}
                 >
                     <div
@@ -99,7 +126,7 @@ const Toast: React.FC<ToastProps & { removeToast: (id: string) => void }> =
                         </div>
                         {closeButton && (
                             <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-100", closeDivClassname)}
-                                 onClick={() => removeToast(id)}
+                                 onClick={() => setVisible(false)}
                             >
                                 <X size={16} className={cn("text-zinc-500", closeClassname)}/>
                             </div>
