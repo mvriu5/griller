@@ -18,6 +18,8 @@ import {CodeBlock} from "@/lib/codeblock";
 import {CopyButton} from "@/lib/copybutton";
 import {Button} from "@/lib/button";
 import {useToast} from "@/component/toaster";
+import {Img} from "@storybook/core/components";
+import { motion } from "framer-motion";
 
 export default function Home() {
     const { addToast } = useToast();
@@ -27,19 +29,20 @@ export default function Home() {
 
             <div className={"flex flex-row justify-between items-center"}>
                 <div className={"flex flex-row space-x-4 items-center"}>
-                    <Blocks size={28} className={"text-zinc-700"}/>
+                    <Img src={"/logo.png"} width={50} height={50}/>
                     <div className={"flex flex-col space-y-1"}>
                         <span className={"text-lg text-zinc-700 font-medium"}>Griller</span>
                         <span className={"text-sm text-zinc-500"}>A fully customizable React Toast Component</span>
                     </div>
                 </div>
 
-                <div
+                <motion.div
                     className={"flex flex-row space-x-2 items-center text-zinc-500 p-2 rounded-lg cursor-pointer hover:bg-zinc-100"}
                     onClick={() => window.location.href = 'https://github.com/mvriu5/griller'}
+                    whileHover={{ y: -4 }}
                 >
                     <Github/>
-                </div>
+                </motion.div>
             </div>
 
             <div className={"rounded-full"}>
@@ -64,7 +67,7 @@ export default function Home() {
 
                 <div
                     className={"flex flex-row space-x-8 items-center bg-zinc-50 px-2 py-1 text-zinc-500 rounded-lg border border-zinc-200"}>
-                    <span className={"font-mono"}>npm install griller</span>
+                    <span className={"font-mono text-sm"}>npm install griller</span>
                     <CopyButton copyText={"npm install griller"}/>
                 </div>
             </div>
