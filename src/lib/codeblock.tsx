@@ -27,7 +27,7 @@ const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath, classNa
                 setLineCount(lines.length);
             })
             .catch(error => console.error('Error fetching the file:', error));
-    }, []);
+    }, [filePath]);
 
     return (
         <div className={"flex flex-col space-y-2"}>
