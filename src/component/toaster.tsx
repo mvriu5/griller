@@ -66,7 +66,8 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
             transition: { duration: 0.3 }
         }),
         hover: (position: Position) => ({
-            marginTop: isTopPositioned(position) ? '-1rem' : '1rem',
+            marginTop: isTopPositioned(position) ? '0' : '0.5rem',
+            marginBottom: isTopPositioned(position) ? '0.5rem' : '0',
             transition: { duration: 0.3 }
         })
     };
@@ -88,8 +89,9 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
                         {positionToasts.map((toast) => (
                             <motion.div
                                 key={toast.id}
+                                layout
                                 variants={childVariants}
-                                custom={{ position }}
+                                custom={position as Position}
                             >
                                 <Toast key={toast.id}
                                        removeToast={removeToast}

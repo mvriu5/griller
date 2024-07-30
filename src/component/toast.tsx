@@ -10,12 +10,12 @@ import {position} from "polished";
 type Position = "tr" | "tl" | "tc" | "br" | "bl" | "bc";
 
 export const positionClasses = (position: Position) => {
-    if (position === 'tr') return `top-16 right-4`;
-    if (position === 'tl') return `top-16 left-4`;
-    if (position === 'tc') return `top-16 left-1/2 transform -translate-x-1/2`;
+    if (position === 'tr') return `top-4 right-4`;
+    if (position === 'tl') return `top-4 left-4`;
+    if (position === 'tc') return `top-4 left-1/2`;
     if (position === 'br') return 'bottom-4 right-4';
     if (position === 'bl') return 'bottom-4 left-4';
-    if (position === 'bc') return 'bottom-4 left-1/2 transform -translate-x-1/2';
+    if (position === 'bc') return 'bottom-4 left-1/2';
     return '';
 }
 
