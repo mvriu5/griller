@@ -15,7 +15,7 @@ export default function RootLayout({children}: Readonly<{ children: ReactNode }>
   return (
       <html lang="en">
           <body className={inter.className}>
-              <div className={"w-screen h-max bg-white"}>
+              <div className={"bg-white"}>
                   <Toaster>
                     {children}
                   </Toaster>

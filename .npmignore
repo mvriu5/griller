@@ -1,3 +1,14 @@
 /node_modules
 /src/lib
 /src/app
+/.idea
+/.github
+/public
+.gitignore
+.eslintrc.json
+next.config.mjs
+next-env.d.ts
+package-lock.json
+postcss.config.mjs
+tailwind.config.ts
+tsconfig.json

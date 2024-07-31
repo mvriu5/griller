@@ -1,11 +1,12 @@
 {
   "name": "griller",
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "repository": {
     "url": "https://github.com/mvriu5/griller"
   },
+  "homepage": "https://griller.ahsmus.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
