@@ -91,6 +91,7 @@ export const Toaster: React.FC<ToasterProps> = ({ children, layout = "stack" }) 
                     variants={containerVariants}
                     initial="initial"
                     whileHover="hover"
+                    whileTap="hover"
                     onMouseEnter={() => setIsPaused(true)}
                     onMouseLeave={() => setIsPaused(false)}
                 >

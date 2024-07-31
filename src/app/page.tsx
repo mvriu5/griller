@@ -22,7 +22,7 @@ export default function Home() {
     const { addToast } = useToast();
 
     return (
-        <div className={"flex flex-col space-y-4 2xl:px-96 2xl:py-32 lg:px-32 lg:py-16 md:px-16 md:py-8 sm:px-8 sm:py-4"}>
+        <div className={"flex flex-col space-y-4 xl:px-96 xl:py-32 lg:px-32 lg:py-16 md:px-16 md:py-8 sm:px-8 sm:py-4"}>
 
             <div className={"flex flex-row justify-between items-center"}>
                 <div className={"flex flex-row space-x-4 items-center"}>
