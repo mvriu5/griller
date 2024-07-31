@@ -37,6 +37,7 @@ export default function Home() {
                     className={"flex flex-row space-x-2 items-center text-zinc-500 p-2 rounded-lg cursor-pointer hover:bg-zinc-100"}
                     onClick={() => window.location.href = 'https://github.com/mvriu5/griller'}
                     whileHover={{y: -4}}
+                    whileTap={{y: -4}}
                 >
                     <Github/>
                 </motion.div>
@@ -75,10 +76,12 @@ export default function Home() {
                 <CodeBlock title={"Code Example"}
                            fileName={"layout.tsx"}
                            filePath={"/layout-example.txt"}
+                           additionalLines={1}
                 />
 
                 <CodeBlock fileName={"component.tsx"}
                            filePath={"/component-example.txt"}
+                           additionalLines={1}
                 />
 
                 <div className={"flex flex-wrap space-x-2 space-y-2 items-center pt-8"}>
@@ -231,6 +234,7 @@ export default function Home() {
                         className={"text-zinc-700 underline cursor-pointer"}
                         onClick={() => window.location.href = 'https://ahsmus.com'}
                         whileHover={{y: -4}}
+                        whileTap={{y: -4}}
                     >
                         mvriu5
                     </motion.span>
