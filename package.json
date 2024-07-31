@@ -2,7 +2,10 @@
   "name": "griller",
   "license": "MIT",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
+  "repository": {
+    "url": "https://github.com/mvriu5/griller"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
