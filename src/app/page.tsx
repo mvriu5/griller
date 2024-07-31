@@ -12,8 +12,7 @@ import {
     SquareArrowOutUpRight,
     TriangleAlert
 } from "lucide-react";
-import {Position} from "@/component/toast";
-import React, {ReactNode} from "react";
+import React from "react";
 import {CodeBlock} from "@/lib/codeblock";
 import {CopyButton} from "@/lib/copybutton";
 import {Button} from "@/lib/button";
@@ -186,7 +185,7 @@ export default function Home() {
                 />
             </div>
 
-            <div className={"flex flex-row space-x-2 items-center"}>
+            <div className={"flex flex-row space-x-2 items-center pb-16"}>
                 <span className={"text-sm text-zinc-700"}>Icon</span>
                 <Button title={"Alert"}
                         onClick={() => addToast({
@@ -217,6 +216,17 @@ export default function Home() {
                             secondTitle: 'This is the second toast title',
                         })}
                 />
+            </div>
+
+            <div className={"w-full h-20 flex flex-row pt-4 space-x-2 border-t border-zinc-200 text-sm text-zinc-500"}>
+                <span>Made by</span>
+                <motion.span
+                    className={"text-zinc-700 underline cursor-pointer"}
+                    onClick={() => window.location.href = 'https://ahsmus.com'}
+                    whileHover={{ y: -4 }}
+                >
+                    mvriu5
+                </motion.span>
             </div>
         </div>
     );
