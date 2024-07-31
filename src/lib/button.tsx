@@ -1,7 +1,7 @@
 "use client";
 
 import React, {ButtonHTMLAttributes, ReactNode} from "react";
-import {cn} from "@/lib/utlis";
+import {cn} from "@/component/toast";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     title: string;
