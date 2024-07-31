@@ -1,9 +1,12 @@
 "use client";
 
 import React, {HTMLAttributes, ReactNode, useEffect, useRef, useState} from "react";
-import {cn} from "@/lib/utlis";
 import {X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
+import clsx, {ClassValue} from "clsx";
+import {twMerge} from "tailwind-merge";
+
+export const cn = (...classes: ClassValue[]) => twMerge(clsx(classes));
 
 type Position = "tr" | "tl" | "tc" | "br" | "bl" | "bc";
 

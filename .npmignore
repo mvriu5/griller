@@ -1,5 +1,6 @@
 /node_modules
 /src/app
+/src/lib
 /.idea
 /.github
 /public
