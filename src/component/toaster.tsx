@@ -21,13 +21,12 @@ const useToast = () => {
 
 interface ToasterProps {
     children: ReactNode;
+    layout?: "stack" | "expand";
 }
 
-export const Toaster: React.FC<ToasterProps> = ({ children }) => {
+export const Toaster: React.FC<ToasterProps> = ({ children, layout = "stack" }) => {
     const [toasts, setToasts] = useState<ToastProps[]>([]);
     const [isPaused, setIsPaused] = useState(false);
-
-    const toastRef = useRef<HTMLDivElement>(null);
 
     const addToast = useCallback((props: Omit<ToastProps, 'id'>) => {
         const id = Math.random().toString(36).substr(2, 9);
@@ -44,6 +43,7 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
             const position = toast.position || 'br';
             if (!acc[position]) acc[position] = [];
             acc[position].push(toast);
+            if (acc[position].length > 3) acc[position].shift();
             return acc;
         }, {} as Record<Position, ToastProps[]>);
     }, [toasts]);
@@ -59,7 +59,7 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
         }
     };
 
-    const childVariants = {
+    const childStackVariants = {
         initial: (position: Position) => ({
             marginTop: isTopPositioned(position) ? '0' : '-3rem',
             marginBottom: isTopPositioned(position) ? '-3rem' : '0',
@@ -70,6 +70,15 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
             marginBottom: isTopPositioned(position) ? '0.5rem' : '0',
             transition: { duration: 0.3 }
         })
+    };
+
+    const childExpandVariants = {
+        initial: (position: Position) => ({
+            marginTop: isTopPositioned(position) ? '0' : '0.5rem',
+            marginBottom: isTopPositioned(position) ? '0.5rem' : '0',
+            transition: { duration: 0.3 }
+        }),
+        hover: {}
     };
 
     return (
@@ -86,20 +95,22 @@ export const Toaster: React.FC<ToasterProps> = ({ children }) => {
                     onMouseLeave={() => setIsPaused(false)}
                 >
                     <AnimatePresence>
-                        {positionToasts.map((toast) => (
-                            <motion.div
-                                key={toast.id}
-                                layout
-                                variants={childVariants}
-                                custom={position as Position}
-                            >
-                                <Toast key={toast.id}
-                                       removeToast={removeToast}
-                                       isPaused={isPaused}
-                                       {...toast}
-                                />
-                            </motion.div>
-                        ))}
+                        {positionToasts.map((toast) => {
+                            return(
+                                <motion.div
+                                    key={toast.id}
+                                    layout
+                                    variants={layout === "stack" ? childStackVariants : childExpandVariants}
+                                    custom={position as Position}
+                                >
+                                    <Toast key={toast.id}
+                                           removeToast={removeToast}
+                                           isPaused={isPaused}
+                                           {...toast}
+                                    />
+                                </motion.div>
+                            )
+                        })}
                     </AnimatePresence>
                 </motion.div>
             ))}

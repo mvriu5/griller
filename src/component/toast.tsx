@@ -27,6 +27,9 @@ interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     position?: Position;
     color?: string;
     closeButton?: boolean;
+    actionButton?: boolean;
+    onAction?: () => void;
+    actionButtonText?: string;
     duration?: number;
     titleClassname?: string;
     secondTitleClassname?: string;
@@ -34,13 +37,15 @@ interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     closeClassname?: string;
     closeDivClassname?: string;
     motionClassname?: string;
+    actionButtonClassname?: string;
 }
 
 const Toast: React.FC<ToastProps & {
     removeToast: (id: string) => void,
     isPaused: boolean,
-}> = ({id, title, secondTitle, icon, position = "br", closeButton, duration = 3000, color, titleClassname,
-         secondTitleClassname, closeClassname, closeDivClassname, motionClassname, iconClassname,
+}> = ({id, title, secondTitle, icon, position = "br", closeButton,
+                       actionButton, onAction, actionButtonText, duration = 3000, color, titleClassname,
+         secondTitleClassname, closeClassname, closeDivClassname, motionClassname, iconClassname, actionButtonClassname,
          className, removeToast, isPaused, ...props }) => {
 
     const [visible, setVisible] = useState(true);
@@ -113,24 +118,31 @@ const Toast: React.FC<ToastProps & {
                         style={{backgroundColor: color || 'rgb(250, 250, 250)'}}
                         {...props}
                     >
-                        <div className="flex flex-row items-center">
+                        <div className={cn("flex flex-row items-center space-x-2", closeButton && "mr-2")}>
                             {icon && (
                                 <div className={cn("text-zinc-700", iconClassname)}>
                                     {icon}
                                 </div>
                             )}
-                            <div className={cn("flex flex-col max-w-60", icon && "ml-4")}>
+                            <div className={cn("flex flex-col max-w-60", icon && "ml-4", actionButton)}>
                                 <span className={cn("text-sm text-zinc-700 font-medium text-nowrap truncate", titleClassname)}>{title}</span>
                                 {secondTitle && (<span className={cn("text-xs text-zinc-500", secondTitleClassname)}>{secondTitle}</span>)}
                             </div>
+                            {actionButton &&
+                                <button className={cn("h-max py-1 px-2 rounded-lg bg-zinc-100 " +
+                                    "border border-zinc-300 text-xs text-zinc-500 hover:bg-zinc-200", actionButtonClassname)}
+                                        onClick={onAction}>
+                                    {actionButtonText || "Undo"}
+                                </button>
+                            }
                         </div>
-                        {closeButton && (
+                        {closeButton &&
                             <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-100", closeDivClassname)}
                                  onClick={() => setVisible(false)}
                             >
                                 <X size={16} className={cn("text-zinc-500", closeClassname)}/>
                             </div>
-                        )}
+                        }
                     </div>
                 </motion.div>
             )}

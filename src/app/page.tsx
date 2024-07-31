@@ -21,7 +21,7 @@ import {Img} from "@storybook/core/components";
 import { motion } from "framer-motion";
 
 export default function Home() {
-    const { addToast } = useToast();
+    const { addToast, removeToast } = useToast();
 
     return (
         <div className={"flex flex-col space-y-4"}>
@@ -38,7 +38,7 @@ export default function Home() {
                 <motion.div
                     className={"flex flex-row space-x-2 items-center text-zinc-500 p-2 rounded-lg cursor-pointer hover:bg-zinc-100"}
                     onClick={() => window.location.href = 'https://github.com/mvriu5/griller'}
-                    whileHover={{ y: -4 }}
+                    whileHover={{y: -4}}
                 >
                     <Github/>
                 </motion.div>
@@ -161,10 +161,8 @@ export default function Home() {
             </div>
 
             <div className={"flex flex-row space-x-2 items-center"}>
-                <span className={"text-sm text-zinc-700"}>Close Button</span>
-                <Button title={""}
-                        icon={<Check size={16}/>}
-                        className={"py-2"}
+                <span className={"text-sm text-zinc-700"}>Buttons</span>
+                <Button title={"Close"}
                         onClick={() => addToast({
                             icon: <ShieldAlert size={24}/>,
                             title: 'Toast Notification',
@@ -173,14 +171,22 @@ export default function Home() {
                             duration: 60000
                         })}
                 />
-                <Button title={""}
-                        icon={<Ban size={16}/>}
-                        className={"py-2"}
+                <Button title={"Action"}
                         onClick={() => addToast({
                             icon: <ShieldAlert size={24}/>,
                             title: 'Toast Notification',
                             secondTitle: 'This is the second toast title',
-                            closeButton: false
+                            actionButton: true
+                        })}
+                />
+                <Button title={"Close & Action"}
+                        onClick={() => addToast({
+                            icon: <ShieldAlert size={24}/>,
+                            title: 'Toast Notification',
+                            secondTitle: 'This is the second toast title',
+                            closeButton: true,
+                            duration: 60000,
+                            actionButton: true
                         })}
                 />
             </div>
@@ -223,7 +229,7 @@ export default function Home() {
                 <motion.span
                     className={"text-zinc-700 underline cursor-pointer"}
                     onClick={() => window.location.href = 'https://ahsmus.com'}
-                    whileHover={{ y: -4 }}
+                    whileHover={{y: -4}}
                 >
                     mvriu5
                 </motion.span>
