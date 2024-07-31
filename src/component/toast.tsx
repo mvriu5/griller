@@ -4,8 +4,6 @@ import React, {HTMLAttributes, ReactNode, useEffect, useRef, useState} from "rea
 import {cn} from "@/lib/utlis";
 import {X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
-import {remove} from "@jridgewell/set-array";
-import {position} from "polished";
 
 type Position = "tr" | "tl" | "tc" | "br" | "bl" | "bc";
 
