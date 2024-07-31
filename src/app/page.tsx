@@ -2,8 +2,6 @@
 
 import {
     Ban,
-    Blocks,
-    Check,
     FlaskConical,
     GitBranch,
     Github,
@@ -17,8 +15,8 @@ import {CodeBlock} from "@/lib/codeblock";
 import {CopyButton} from "@/lib/copybutton";
 import {Button} from "@/lib/button";
 import {useToast} from "@/component/toaster";
-import {Img} from "@storybook/core/components";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
+import Image from "next/image"
 
 export default function Home() {
     const { addToast } = useToast();
@@ -28,10 +26,10 @@ export default function Home() {
 
             <div className={"flex flex-row justify-between items-center"}>
                 <div className={"flex flex-row space-x-4 items-center"}>
-                    <Img src={"/logo.png"} width={50} height={50}/>
+                    <Image src={"/logo.png"} width={50} height={50} alt={"logo"}/>
                     <div className={"flex flex-col space-y-1"}>
                         <span className={"text-lg text-zinc-700 font-medium"}>Griller</span>
-                        <span className={"text-sm text-zinc-500 md:hidden"}>A fully customizable React Toast Component</span>
+                        <span className={"text-sm text-zinc-500"}>A fully customizable React Toast Component</span>
                     </div>
                 </div>
 
