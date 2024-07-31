@@ -1,5 +1,7 @@
 import {Toast} from "griller/toast";
 
+ const { addToast } = useToast();
+
 <button onClick={() =>
     addToast({title: 'Toast Notification'})}
 </button>

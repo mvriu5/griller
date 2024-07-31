@@ -21,17 +21,17 @@ import {Img} from "@storybook/core/components";
 import { motion } from "framer-motion";
 
 export default function Home() {
-    const { addToast, removeToast } = useToast();
+    const { addToast } = useToast();
 
     return (
-        <div className={"flex flex-col space-y-4"}>
+        <div className={"flex flex-col space-y-4 2xl:px-96 2xl:py-32 lg:px-32 lg:py-16 md:px-16 md:py-8 sm:px-8 sm:py-4"}>
 
             <div className={"flex flex-row justify-between items-center"}>
                 <div className={"flex flex-row space-x-4 items-center"}>
                     <Img src={"/logo.png"} width={50} height={50}/>
                     <div className={"flex flex-col space-y-1"}>
                         <span className={"text-lg text-zinc-700 font-medium"}>Griller</span>
-                        <span className={"text-sm text-zinc-500"}>A fully customizable React Toast Component</span>
+                        <span className={"text-sm text-zinc-500 md:hidden"}>A fully customizable React Toast Component</span>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@ export default function Home() {
                        filePath={"/component-example.txt"}
             />
 
-            <div className={"flex flex-row space-x-2 items-center pt-8"}>
+            <div className={"flex flex-wrap space-x-2 items-center pt-8"}>
                 <span className={"text-sm text-zinc-700"}>Position</span>
                 <Button title={"top-left"}
                         onClick={() => addToast({
