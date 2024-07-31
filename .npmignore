@@ -4,6 +4,7 @@
 /.idea
 /.github
 /public
+/.next
 .gitignore
 .eslintrc.json
 next.config.mjs
