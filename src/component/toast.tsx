@@ -9,6 +9,7 @@ import {twMerge} from "tailwind-merge";
 export const cn = (...classes: ClassValue[]) => twMerge(clsx(classes));
 
 type Position = "tr" | "tl" | "tc" | "br" | "bl" | "bc";
+type Theme = "light" | "dark";
 
 export const positionClasses = (position: Position) => {
     if (position === 'tr') return `top-4 right-4`;
@@ -26,7 +27,7 @@ interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     secondTitle?: string;
     icon?: ReactNode;
     position?: Position;
-    color?: string;
+    theme?: Theme;
     closeButton?: boolean;
     actionButton?: boolean;
     onAction?: () => void;
@@ -44,8 +45,9 @@ interface ToastProps extends HTMLAttributes<HTMLDivElement> {
 const Toast: React.FC<ToastProps & {
     removeToast: (id: string) => void,
     isPaused: boolean,
-}> = ({id, title, secondTitle, icon, position = "br", closeButton,
-                       actionButton, onAction, actionButtonText, duration = 3000, color, titleClassname,
+}> = ({
+   id, title, secondTitle, icon, position = "br", closeButton,
+                       actionButton, onAction, actionButtonText, duration = 3000, theme = "light", titleClassname,
          secondTitleClassname, closeClassname, closeDivClassname, motionClassname, iconClassname, actionButtonClassname,
          className, removeToast, isPaused, ...props }) => {
 
@@ -115,33 +117,54 @@ const Toast: React.FC<ToastProps & {
                     style={position === "tc" || position === "bc" ? { marginLeft: `-${width / 2}px` } : {}}
                 >
                     <div
-                        className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg border border-zinc-200", className)}
-                        style={{backgroundColor: color || 'rgb(250, 250, 250)'}}
+                        className={cn("min-w-72 min-h-16 flex flex-row justify-between p-2 pl-4 rounded-lg",
+                            theme === "light" ?
+                                "bg-zinc-50 border border-zinc-200" :
+                                "bg-zinc-800 border border-zinc-700",
+                            className
+                        )}
                         {...props}
                     >
                         <div className={cn("flex flex-row items-center space-x-2", closeButton && "mr-2")}>
                             {icon && (
-                                <div className={cn("text-zinc-700", iconClassname)}>
+                                <div className={cn(iconClassname, theme === "light" ? "text-zinc-600" : "text-zinc-100",)}>
                                     {icon}
                                 </div>
                             )}
                             <div className={cn("flex flex-col max-w-60", icon && "ml-4", actionButton)}>
-                                <span className={cn("text-sm text-zinc-700 font-medium text-nowrap truncate", titleClassname)}>{title}</span>
-                                {secondTitle && (<span className={cn("text-xs text-zinc-500", secondTitleClassname)}>{secondTitle}</span>)}
+                                <span className={cn("text-sm font-medium text-nowrap truncate",
+                                    theme === "light" ? "text-zinc-600" : "text-zinc-100",
+                                    titleClassname
+                                )}
+                                >
+                                    {title}
+                                </span>
+                                {secondTitle && (
+                                    <span className={cn("text-xs", theme === "light" ? "text-zinc-400" : "text-zinc-300", secondTitleClassname)}>
+                                        {secondTitle}
+                                    </span>
+                                )}
                             </div>
                             {actionButton &&
-                                <button className={cn("h-max py-1 px-2 rounded-lg bg-zinc-100 " +
-                                    "border border-zinc-300 text-xs text-zinc-500 hover:bg-zinc-200", actionButtonClassname)}
+                                <button className={cn("h-max py-1 px-2 rounded-lg text-xs",
+                                    theme === "light" ?
+                                        "bg-zinc-100 border border-zinc-200 text-zinc-500 hover:bg-zinc-200" :
+                                        "bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700",
+                                    actionButtonClassname
+                                )}
                                         onClick={onAction}>
                                     {actionButtonText || "Undo"}
                                 </button>
                             }
                         </div>
                         {closeButton &&
-                            <div className={cn("h-max p-0.5 rounded-lg cursor-pointer hover:bg-zinc-100", closeDivClassname)}
+                            <div className={cn("h-max p-0.5 rounded-lg cursor-pointer",
+                                theme === "light" ? "hover:bg-zinc-200" : "hover:bg-zinc-700",
+                                closeDivClassname
+                            )}
                                  onClick={() => setVisible(false)}
                             >
-                                <X size={16} className={cn("text-zinc-500", closeClassname)}/>
+                                <X size={16} className={cn(theme === "light" ? "text-zinc-500" : "text-zinc-400", closeClassname)}/>
                             </div>
                         }
                     </div>
