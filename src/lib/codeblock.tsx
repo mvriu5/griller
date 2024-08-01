@@ -2,15 +2,15 @@
 
 import React, {HTMLAttributes, useEffect, useState} from "react";
 import {CopyButton} from "@/lib/copybutton";
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface CodeBockProps extends HTMLAttributes<HTMLDivElement> {
     title?: string;
     fileName: string;
     filePath: string;
-    additionalLines?: number;
 }
 
-const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath, className, additionalLines, ...props }) => {
+const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath, className, ...props }) => {
     const [fileContent, setFileContent] = useState('');
     const [lineCount, setLineCount] = useState(0);
 
@@ -39,10 +39,9 @@ const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath, classNa
                         <span className={"text-zinc-500 text-xs"}>{fileName}</span>
                         <CopyButton copyText={fileContent}/>
                     </div>
-                     <textarea
+                     <TextareaAutosize
                          className={"p-2 w-full h-auto font-mono text-sm text-zinc-500 bg-zinc-50 overflow-hidden resize-none focus:outline-none rounded-b-lg"}
                          value={fileContent}
-                         rows={lineCount + (additionalLines || 0)}
                          readOnly
                      />
                 </div>

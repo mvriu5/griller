@@ -76,12 +76,10 @@ export default function Home() {
                 <CodeBlock title={"Code Example"}
                            fileName={"layout.tsx"}
                            filePath={"/layout-example.txt"}
-                           additionalLines={1}
                 />
 
                 <CodeBlock fileName={"component.tsx"}
                            filePath={"/component-example.txt"}
-                           additionalLines={1}
                 />
 
                 <div className={"flex flex-wrap space-x-2 space-y-2 items-center pt-8"}>
@@ -195,7 +193,7 @@ export default function Home() {
                     />
                 </div>
 
-                <div className={"flex flex-row space-x-2 items-center pb-16"}>
+                <div className={"flex flex-row space-x-2 items-center"}>
                     <span className={"text-sm text-zinc-700"}>Theme</span>
                     <Button title={"Light"}
                             onClick={() => addToast({
