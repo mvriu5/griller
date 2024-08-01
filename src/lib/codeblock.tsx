@@ -10,9 +10,8 @@ interface CodeBockProps extends HTMLAttributes<HTMLDivElement> {
     filePath: string;
 }
 
-const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath, className, ...props }) => {
+const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath }) => {
     const [fileContent, setFileContent] = useState('');
-    const [lineCount, setLineCount] = useState(0);
 
     useEffect(() => {
         fetch(filePath)
@@ -24,8 +23,6 @@ const CodeBlock: React.FC<CodeBockProps> = ({ title, fileName, filePath, classNa
             })
             .then(text => {
                 setFileContent(text);
-                const lines = text.split(/\r\n|\r|\n/);
-                setLineCount(lines.length);
             })
             .catch(error => console.error('Error fetching the file:', error));
     }, [filePath]);

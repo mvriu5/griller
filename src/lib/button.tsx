@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({ title, icon, className, ...props }) => {
     return (
         <button
-            className={cn("flex flex-row items-center w-max px-3 py-1 text-zinc-500 rounded-lg text-sm text-nowrap " +
+            className={cn("flex flex-row items-center w-max h-max px-3 py-1 text-zinc-500 rounded-lg text-sm text-nowrap " +
                 "bg-zinc-100 border border-zinc-200 hover:bg-zinc-200", className)} {...props}>
             {icon}
             {title}

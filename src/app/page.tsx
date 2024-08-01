@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    Ban,
+    Ban, FlagTriangleRight,
     FlaskConical,
     GitBranch,
     Github,
@@ -50,24 +50,31 @@ export default function Home() {
                 transition={{duration: 0.65}}
                 className={"flex flex-col space-y-4"}
             >
-                <div className={"flex flex-row justify-between space-x-2 pb-8"}>
+                <div className={"flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:justify-between sm:space-y-0 pb-8"}>
                     <div className={"flex flex-row space-x-2"}>
                         <Button title={"Test"}
-                                icon={<FlaskConical size={15} className={"mr-2"}/>}
-                                onClick={() => addToast({
-                                    icon: <ShieldAlert size={24}/>,
-                                    title: 'Toast Notification',
-                                    secondTitle: 'This is the second toast title'
-                                })}
-                                className={"text-zinc-200 bg-zinc-900 hover:bg-zinc-800 hover:text-zinc-100"}
+                                icon={<FlagTriangleRight size={15} className={"mr-2"}/>}
+                                onClick={() =>
+                                    addToast({
+                                        icon: <ShieldAlert size={24}/>,
+                                        title: 'Toast Notification',
+                                        secondTitle: 'This is the second toast title'
+                                    }
+                                )}
+                                className={"text-zinc-200 bg-zinc-900 hover:bg-zinc-800 hover:text-zinc-100 py-1.5"}
                         />
                         <Button title={"Docs"}
                                 icon={<SquareArrowOutUpRight size={16} className={"mr-2"}/>}
+                                className={"py-1.5"}
+                        />
+                        <Button title={"Lab"}
+                                icon={<FlaskConical size={15} className={"mr-2"}/>}
+                                className={"py-1.5"}
                         />
                     </div>
 
                     <div
-                        className={"flex flex-row space-x-8 items-center bg-zinc-50 px-2 py-1 text-zinc-500 rounded-lg border border-zinc-200 overflow-hidden"}>
+                        className={"w-max flex flex-row space-x-8 items-center bg-zinc-50 px-2 py-1 text-zinc-500 rounded-lg border border-zinc-200 overflow-hidden"}>
                         <span className={"font-mono text-sm truncate"}>npm install griller</span>
                         <CopyButton copyText={"npm install griller"}/>
                     </div>
