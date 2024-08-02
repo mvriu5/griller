@@ -75,40 +75,39 @@ export default function Home() {
                     </span>
                 </div>
 
-                <div className={"grid grid-cols-1 space-y-8 lg:space-y-0 lg:grid-cols-2 lg:space-x-16 pt-4"}>
-
+                <div className={"grid grid-cols-1 space-y-8 2xl:space-y-0 2xl:grid-cols-2 2xl:space-x-16 pt-4"}>
                     <div className={"flex flex-col space-y-2"}>
                         <span className={"text-sm text-zinc-700 font-medium"}>Customize</span>
-                        <div className={"h-max flex flex-col space-y-4 p-4 rounded-lg border border-zinc-200 bg-zinc-50"}>
-                            <Input placeholder={"Title"}
-                                   label={"Title"}
-                                   preSelectedValue={"Toast Component"}
-                                   size={40}
-                                   onChange={(e) => setTitle(e.target.value)}
-                            />
-                            <Input placeholder={"Second Title"}
-                                   label={"Second Title"}
-                                   preSelectedValue={"This is a Toast Component!"}
-                                   size={60}
-                                   onChange={(e) => setSecondTitle(e.target.value)}
-                            />
-                            <div className={"flex flex-col sm:flex-row sm:space-x-8 space-x-0 space-y-2 sm:space-y-0"}>
-                                <Combobox title={"Position"}
-                                          values={["tr", "tl", "tc", "br", "bl", "bc"]}
-                                          preSelectedValue={"br"}
-                                          label={"Position"}
-                                          onChange={value => setPosition(value as Position)}
+                        <div className={"h-max flex flex-col rounded-lg border border-zinc-200 bg-zinc-50"}>
+                            <div className={"flex flex-col p-4 space-y-4"}>
+                                <Input placeholder={"Title"}
+                                       label={"Title"}
+                                       preSelectedValue={"Toast Component"}
+                                       size={40}
+                                       onChange={(e) => setTitle(e.target.value)}
                                 />
-                                <Combobox title={"Duration"}
-                                          values={["1000", "3000", "5000", "10000", "100000"]}
-                                          preSelectedValue={"3000"}
-                                          label={"Duration"}
-                                          onChange={value => setDuration(parseInt(value))}
+                                <Input placeholder={"Second Title"}
+                                       label={"Second Title"}
+                                       preSelectedValue={"This is a Toast Component!"}
+                                       size={60}
+                                       onChange={(e) => setSecondTitle(e.target.value)}
                                 />
-                            </div>
+                                <div className={"flex flex-col sm:flex-row sm:space-x-8 space-x-0 space-y-2 sm:space-y-0"}>
+                                    <Combobox title={"Position"}
+                                              values={["tr", "tl", "tc", "br", "bl", "bc"]}
+                                              preSelectedValue={"br"}
+                                              label={"Position"}
+                                              onChange={value => setPosition(value as Position)}
+                                    />
+                                    <Combobox title={"Duration"}
+                                              values={["1000", "3000", "5000", "10000", "100000"]}
+                                              preSelectedValue={"3000"}
+                                              label={"Duration"}
+                                              onChange={value => setDuration(parseInt(value))}
+                                    />
+                                </div>
 
-                            <div className={"flex flex-wrap justify-between"}>
-                                <div className={"flex flex-wrap space-x-2"}>
+                                <div className={"flex flex-col 2xl:flex-row 2xl:space-x-4 space-y-2 2xl:space-y-0"}>
                                     <SwitchButton titleOne={"Light"}
                                                   titleTwo={"Dark"}
                                                   label={"Theme"}
@@ -130,8 +129,11 @@ export default function Home() {
                                                   onChange={value => setActionButton(value)}
                                     />
                                 </div>
+                            </div>
+
+                            <div className={"w-full flex flex-row justify-end bg-zinc-100 rounded-b-lg border-t border-zinc-200 px-4 py-2"}>
                                 <Button title={"Test"}
-                                        className={"bg-zinc-50 text-zinc-700 py-1 mt-5"}
+                                        className={"bg-zinc-50 text-zinc-700 py-1"}
                                         onClick={handleAddToast}
                                 />
                             </div>
