@@ -75,7 +75,7 @@ export default function Home() {
                     </span>
                 </div>
 
-                <div className={"grid grid-cols-1 space-y-8 2xl:space-y-0 2xl:grid-cols-2 2xl:space-x-16 pt-4"}>
+                <div className={"grid grid-cols-1 space-y-8 2xl:space-y-0 2xl:grid-cols-2 2xl:space-x-16 pt-4 pb-52"}>
                     <div className={"flex flex-col space-y-2"}>
                         <span className={"text-sm text-zinc-700 font-medium"}>Customize</span>
                         <div className={"h-max flex flex-col rounded-lg border border-zinc-200 bg-zinc-50"}>
@@ -84,12 +84,14 @@ export default function Home() {
                                        label={"Title"}
                                        preSelectedValue={"Toast Component"}
                                        size={40}
+                                       value={title}
                                        onChange={(e) => setTitle(e.target.value)}
                                 />
                                 <Input placeholder={"Second Title"}
                                        label={"Second Title"}
                                        preSelectedValue={"This is a Toast Component!"}
                                        size={60}
+                                       value={secondTitle}
                                        onChange={(e) => setSecondTitle(e.target.value)}
                                 />
                                 <div className={"flex flex-col sm:flex-row sm:space-x-8 space-x-0 space-y-2 sm:space-y-0"}>
