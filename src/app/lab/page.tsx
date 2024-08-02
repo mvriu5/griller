@@ -62,7 +62,7 @@ export default function Home() {
                 <div className={"flex flex-row items-center space-x-8 border-b border-zinc-200 pb-4"}>
                     <div className={"flex flex-row items-center space-x-2"}>
                         <div className={"rounded-lg p-1 hover:bg-zinc-200 cursor-pointer"}
-                             onClick={() => router.back()}
+                             onClick={() => window.location.href = 'https://griller.ahsmus.com'}
                         >
                             <ArrowLeftFromLine size={20} className={"text-zinc-700"}/>
                         </div>
