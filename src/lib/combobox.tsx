@@ -4,10 +4,12 @@ import { cn } from "@/component/toast";
 import {useOutsideClick} from "@/lib/useOutsideClick";
 import ReactDOM from "react-dom";
 
-interface ComboProps {
+interface ComboProps{
     title: string;
     values: string[];
     label?: string;
+    preSelectedValue?: string;
+    onChange?: (value: string) => void;
 }
 
 type ComboRef = {
@@ -21,8 +23,8 @@ const ComboboxPortal: React.FC<{children: ReactNode}> = ({ children }) => {
     );
 }
 
-const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label }, ref) => {
-    const [value, setValue] = useState<string>(values[0] ?? "");
+const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label, preSelectedValue, onChange }, ref) => {
+    const [value, setValue] = useState<string>(preSelectedValue || values[0] || "");
     const [open, setOpen] = useState<boolean>(false);
     const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
     const itemRef = useRef<HTMLDivElement>(null);
@@ -43,6 +45,14 @@ const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label }, ref
         getValue: () => value
     }), [value]);
 
+    const handleValueChange = (newValue: string) => {
+        setValue(newValue);
+        setOpen(false);
+        if (onChange) {
+            onChange(newValue);
+        }
+    };
+
     return (
         <div className={"flex flex-col space-y-1"}>
 
@@ -52,7 +62,7 @@ const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label }, ref
                  onClick={() => setOpen(!open)}
                  ref={itemRef}
             >
-                <span>{title}</span>
+                <span>{value}</span>
                 {open ? <ChevronDown size={16}/> : <ChevronUp size={16}/>}
             </div>
 
@@ -68,10 +78,7 @@ const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label }, ref
                                      "flex flex-row items-center space-x-2 px-1.5 py-0.5 w-full rounded-lg hover:bg-zinc-200 cursor-pointer",
                                      value === item ? "bg-zinc-200" : ""
                                  )}
-                                 onClick={() => {
-                                     setValue(item);
-                                     setOpen(false);
-                                 }}
+                                 onClick={() => handleValueChange(item)}
                             >
                                 <span className={"text-zinc-500 text-sm"}>{item}</span>
                                 {value === item && <Check size={16} className={"text-zinc-500"}/>}
