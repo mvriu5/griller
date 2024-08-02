@@ -53,7 +53,7 @@ export default function Home() {
 
     return (
         <motion.div
-            className={"h-screen flex flex-col justify-between space-y-4 p-4 lg:px-40 lg:py-16 2xl:px-96 2xl:py-32"}
+            className={"h-full flex flex-col justify-between space-y-4 p-4 lg:px-40 lg:py-16 2xl:px-96 2xl:py-32"}
             initial={{opacity: 0, filter: 'blur(10px)', y: 50}}
             animate={{opacity: 1, filter: 'blur(0px)', y: 0}}
             transition={{duration: 0.65}}
