@@ -27,9 +27,9 @@ const SwitchButton = forwardRef<SwitchButtonRef, SwitchButtonProps>(({ label, ti
 
     return (
         <div className={"flex flex-col space-y-1"}>
-            {label && <span className={"text-xs text-zinc-500"}>{label}</span>}
+            {label && <span className={"text-xs text-zinc-500 truncate"}>{label}</span>}
 
-            <div className={"w-max flex flex-row space-x-2 p-0.5 rounded-lg border border-zinc-200 bg-zinc-100"}>
+            <div className={"w-max flex flex-row space-x-1 p-0.5 rounded-lg border border-zinc-200 bg-zinc-100"}>
                 <div className={cn("px-1 py-0.5 text-sm text-zinc-400 cursor-pointer rounded-lg", !value && "bg-zinc-200 text-zinc-600")}
                     onClick={() => handleChange(!value)}
                 >
