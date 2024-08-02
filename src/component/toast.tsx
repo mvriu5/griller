@@ -139,7 +139,7 @@ const Toast: React.FC<ToastProps & {
                                 >
                                     {title}
                                 </span>
-                                {secondTitle && (
+                                {secondTitle && secondTitle.trim() !== "" && (
                                     <span className={cn("text-xs", theme === "light" ? "text-zinc-400" : "text-zinc-300", secondTitleClassname)}>
                                         {secondTitle}
                                     </span>
@@ -175,5 +175,5 @@ const Toast: React.FC<ToastProps & {
 };
 
 export {Toast};
-export type {ToastProps, Position};
+export type {ToastProps, Position, Theme};
 

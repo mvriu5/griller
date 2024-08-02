@@ -17,9 +17,11 @@ import {Button} from "@/lib/button";
 import {useToast} from "@/component/toaster";
 import {motion} from "framer-motion";
 import Image from "next/image"
+import {useRouter} from "next/navigation";
 
 export default function Home() {
     const { addToast } = useToast();
+    const router = useRouter();
 
     return (
         <div className={"flex flex-col space-y-4 p-4 lg:px-40 lg:py-16 2xl:px-96 2xl:py-32"}>
@@ -70,6 +72,7 @@ export default function Home() {
                         <Button title={"Lab"}
                                 icon={<FlaskConical size={15} className={"mr-2"}/>}
                                 className={"py-1.5"}
+                                onClick={() => router.push('/lab')}
                         />
                     </div>
 
