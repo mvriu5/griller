@@ -53,7 +53,7 @@ export default function Home() {
 
     return (
         <motion.div
-            className={"h-full flex flex-col justify-between space-y-4 p-4 lg:px-40 lg:py-16 2xl:px-96 2xl:py-32"}
+            className={"flex flex-col justify-between space-y-4 p-4 lg:px-40 lg:py-16 2xl:px-96 2xl:py-32"}
             initial={{opacity: 0, filter: 'blur(10px)', y: 50}}
             animate={{opacity: 1, filter: 'blur(0px)', y: 0}}
             transition={{duration: 0.65}}
@@ -75,7 +75,7 @@ export default function Home() {
                     </span>
                 </div>
 
-                <div className={"grid grid-cols-1 space-y-8 2xl:space-y-0 2xl:grid-cols-2 2xl:space-x-16 pt-4 pb-52"}>
+                <div className={"grid grid-cols-1 space-y-8 xl:space-y-0 xl:grid-cols-2 xl:space-x-16 pt-4 pb-52"}>
                     <div className={"flex flex-col space-y-2"}>
                         <span className={"text-sm text-zinc-700 font-medium"}>Customize</span>
                         <div className={"h-max flex flex-col rounded-lg border border-zinc-200 bg-zinc-50"}>

@@ -28,6 +28,8 @@ const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label, preSe
     const [open, setOpen] = useState<boolean>(false);
     const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
     const itemRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const portalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (open && itemRef.current) {
@@ -36,9 +38,12 @@ const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label, preSe
         }
     }, [open]);
 
-    const menuRef = useOutsideClick((e) => {
-        e.stopPropagation();
-        setOpen(false);
+    useOutsideClick((e) => {
+        if ((menuRef.current && !menuRef.current.contains(e.target as Node)) &&
+            (portalRef.current && !portalRef.current.contains(e.target as Node)))
+        {
+            setOpen(false);
+        }
     });
 
     useImperativeHandle(ref, () => ({
@@ -58,36 +63,37 @@ const Combobox = forwardRef<ComboRef, ComboProps>(({ title, values, label, preSe
 
             {label && <span className={"text-zinc-500 text-xs px-1"}>{label}</span>}
 
-            <div className={"w-max flex flex-row items-center space-x-8 justify-between px-2 py-1 bg-zinc-100 border border-zinc-200 rounded-lg text-zinc-500 text-sm cursor-pointer"}
-                 onClick={() => setOpen(!open)}
-                 ref={itemRef}
-            >
-                <span>{value}</span>
-                {open ? <ChevronDown size={16}/> : <ChevronUp size={16}/>}
+            <div className={"flex flex-col space-y-1"} ref={menuRef}>
+                <div className={"w-max flex flex-row items-center space-x-8 justify-between px-2 py-1 bg-zinc-100 border border-zinc-200 rounded-lg text-zinc-500 text-sm cursor-pointer"}
+                     onClick={() => setOpen(!open)}
+                     ref={itemRef}
+                >
+                    <span>{value}</span>
+                    {open ? <ChevronDown size={16}/> : <ChevronUp size={16}/>}
+                </div>
+
+                {open &&
+                    <ComboboxPortal>
+                        <div className={"absolute z-50 w-max p-1 space-y-1 bg-zinc-100 border border-zinc-200 rounded-lg"}
+                             style={{ top: dropdownPosition.top, left: dropdownPosition.left }}
+                             ref={portalRef}
+                        >
+                            {values.map((item, index) => (
+                                <div key={index}
+                                     className={cn(
+                                         "flex flex-row items-center space-x-2 px-1.5 py-0.5 w-full rounded-lg hover:bg-zinc-200 cursor-pointer",
+                                         value === item ? "bg-zinc-200" : ""
+                                     )}
+                                     onClick={() => handleValueChange(item)}
+                                >
+                                    <span className={"text-zinc-500 text-sm"}>{item}</span>
+                                    {value === item && <Check size={16} className={"text-zinc-500"}/>}
+                                </div>
+                            ))}
+                        </div>
+                    </ComboboxPortal>
+                }
             </div>
-
-            {open &&
-                <ComboboxPortal>
-                    <div className={"absolute z-50 w-max p-1 space-y-1 bg-zinc-100 border border-zinc-200 rounded-lg"}
-                         style={{ top: dropdownPosition.top, left: dropdownPosition.left }}
-                         ref={menuRef}
-                    >
-                        {values.map((item, index) => (
-                            <div key={index}
-                                 className={cn(
-                                     "flex flex-row items-center space-x-2 px-1.5 py-0.5 w-full rounded-lg hover:bg-zinc-200 cursor-pointer",
-                                     value === item ? "bg-zinc-200" : ""
-                                 )}
-                                 onClick={() => handleValueChange(item)}
-                            >
-                                <span className={"text-zinc-500 text-sm"}>{item}</span>
-                                {value === item && <Check size={16} className={"text-zinc-500"}/>}
-                            </div>
-                        ))}
-                    </div>
-                </ComboboxPortal>
-            }
-
         </div>
     );
 });

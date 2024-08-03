@@ -1,7 +1,7 @@
 "use client";
 
 import React, {HTMLAttributes, useEffect, useState} from "react";
-import {Check, Clipboard} from "lucide-react";
+import {Check, Copy} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 
 interface CopyButtonProps extends HTMLAttributes<HTMLDivElement> {
@@ -46,7 +46,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ copyText, className, ...props }
                         exit={{ opacity: 0, scale: 0.4, y: '100%' }}
                         transition={{ duration: 0.2 }}
                     >
-                        <Clipboard size={14} />
+                        <Copy size={14} />
                     </motion.div>
                 )}
             </AnimatePresence>
