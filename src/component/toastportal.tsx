@@ -1,30 +1,29 @@
-import ReactDOM from 'react-dom';
+import {createPortal} from 'react-dom';
 import React, {ReactNode, useEffect, useState} from 'react';
 
-interface ToastPortalProps {
-    children: ReactNode;
-}
-
-export const ToastPortal: React.FC<ToastPortalProps> = ({ children }) => {
+const ToastPortal: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
 
     useEffect(() => {
-        let element = document.getElementById('toast-portal-root');
-        if (!element) {
-            element = document.createElement('div');
-            element.id = 'toast-portal-root';
-            document.body.appendChild(element);
+        if (typeof window !== 'undefined') {
+            let element = document.getElementById('toast-portal-root');
+            if (!element) {
+                element = document.createElement('div');
+                element.id = 'toast-portal-root';
+                document.body.appendChild(element);
+            }
+            setPortalElement(element);
         }
-        setPortalElement(element);
 
         return () => {
-            if (element && element.parentNode) {
-                element.parentNode.removeChild(element);
+            if (portalElement && portalElement.parentNode) {
+                portalElement.parentNode.removeChild(portalElement);
             }
         };
     }, []);
 
     if (!portalElement) return null;
-
-    return ReactDOM.createPortal(children, portalElement);
+    return createPortal(children, portalElement);
 };
+
+export { ToastPortal };
