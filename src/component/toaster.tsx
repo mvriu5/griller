@@ -1,9 +1,35 @@
 "use client";
 
-import React, {createContext, ReactNode, useCallback, useContext, useMemo, useRef, useState} from 'react';
+import React, {createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 import {Position, positionClasses, Toast, ToastProps} from './toast';
 import {AnimatePresence, motion} from "framer-motion";
-import { ToastPortal } from './toastportal';
+import {createPortal} from "react-dom";
+
+const ToastPortal: React.FC<{children: ReactNode}> = ({ children }) => {
+    const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            let element = document.getElementById('toast-portal-root');
+            if (!element) {
+                element = document.createElement('div');
+                element.id = 'toast-portal-root';
+                document.body.appendChild(element);
+            }
+            setPortalElement(element);
+        }
+
+        return () => {
+            if (portalElement && portalElement.parentNode) {
+                portalElement.parentNode.removeChild(portalElement);
+            }
+        };
+    }, []);
+
+    if (!portalElement) return null;
+
+    return createPortal(children, portalElement);
+};
 
 interface ToastContextType {
     addToast: (props: Omit<ToastProps, 'id'>) => string;
