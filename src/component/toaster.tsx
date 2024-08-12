@@ -3,6 +3,7 @@
 import React, {createContext, ReactNode, useCallback, useContext, useMemo, useRef, useState} from 'react';
 import {Position, positionClasses, Toast, ToastProps} from './toast';
 import {AnimatePresence, motion} from "framer-motion";
+import { ToastPortal } from './toastportal';
 
 interface ToastContextType {
     addToast: (props: Omit<ToastProps, 'id'>) => string;
@@ -84,37 +85,39 @@ export const Toaster: React.FC<ToasterProps> = ({ children, layout = "stack" }) 
     return (
         <ToastContext.Provider value={{ addToast, removeToast }}>
             {children}
-            {Object.entries(groupedToasts).map(([position, positionToasts]) => (
-                <motion.div
-                    key={position}
-                    className={`fixed z-50 flex flex-col ${positionClasses(position as Position)}`}
-                    variants={containerVariants}
-                    initial="initial"
-                    whileHover="hover"
-                    whileTap="hover"
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                >
-                    <AnimatePresence>
-                        {positionToasts.map((toast) => {
-                            return(
-                                <motion.div
-                                    key={toast.id}
-                                    layout
-                                    variants={layout === "stack" ? childStackVariants : childExpandVariants}
-                                    custom={position as Position}
-                                >
-                                    <Toast key={toast.id}
-                                           removeToast={removeToast}
-                                           isPaused={isPaused}
-                                           {...toast}
-                                    />
-                                </motion.div>
-                            )
-                        })}
-                    </AnimatePresence>
-                </motion.div>
-            ))}
+            <ToastPortal>
+                {Object.entries(groupedToasts).map(([position, positionToasts]) => (
+                    <motion.div
+                        key={position}
+                        className={`fixed z-50 flex flex-col ${positionClasses(position as Position)}`}
+                        variants={containerVariants}
+                        initial="initial"
+                        whileHover="hover"
+                        whileTap="hover"
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                    >
+                        <AnimatePresence>
+                            {positionToasts.map((toast) => {
+                                return(
+                                    <motion.div
+                                        key={toast.id}
+                                        layout
+                                        variants={layout === "stack" ? childStackVariants : childExpandVariants}
+                                        custom={position as Position}
+                                    >
+                                        <Toast key={toast.id}
+                                               removeToast={removeToast}
+                                               isPaused={isPaused}
+                                               {...toast}
+                                        />
+                                    </motion.div>
+                                )
+                            })}
+                        </AnimatePresence>
+                    </motion.div>
+                ))}
+            </ToastPortal>
         </ToastContext.Provider>
     );
 };

@@ -5,7 +5,6 @@ import {X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import clsx, {ClassValue} from "clsx";
 import {twMerge} from "tailwind-merge";
-import ReactDOM from "react-dom";
 
 export const cn = (...classes: ClassValue[]) => twMerge(clsx(classes));
 
@@ -20,10 +19,6 @@ export const positionClasses = (position: Position) => {
     if (position === 'bl') return 'bottom-4 left-4';
     if (position === 'bc') return 'bottom-4 left-1/2';
     return '';
-}
-
-const ToastPortal: React.FC<{ children: ReactNode }> = ({ children }) => {
-    return ReactDOM.createPortal(children, document.body);
 }
 
 interface ToastProps extends HTMLAttributes<HTMLDivElement> {
@@ -108,7 +103,6 @@ const Toast: React.FC<ToastProps & {
     };
 
     return (
-        <ToastPortal>
             <AnimatePresence onExitComplete={() => removeToast(id)}>
                 {visible && (
                     <motion.div
@@ -177,7 +171,6 @@ const Toast: React.FC<ToastProps & {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </ToastPortal>
     );
 };
 
