@@ -24,7 +24,7 @@ export default function Home() {
     const router = useRouter();
 
     return (
-        <div className={"flex flex-col space-y-4 p-4 lg:px-40 lg:py-16 2xl:px-96 2xl:py-32"}>
+        <div className={"flex flex-col space-y-4 p-4 lg:px-[25%] md:py-32 md:px-[15%]"}>
 
             <div className={"flex flex-row justify-between items-center border-b border-zinc-200 pb-4"}>
                 <div className={"flex flex-row space-x-4 items-center"}>
