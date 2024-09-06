@@ -40,7 +40,7 @@ interface ToastContextType {
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 // useToast hook to access the context
-const useToast = () => {
+export const useToast = () => {
     const context = useContext(ToastContext);
     if (context === undefined) {
         throw new Error('useToast muss innerhalb eines Toasters verwendet werden');
@@ -168,4 +168,3 @@ const Toaster: React.FC<ToasterProps> = ({ children, layout = "stack", scaleDecr
 };
 
 export default Toaster;
-export { useToast };

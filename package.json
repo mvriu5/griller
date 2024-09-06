@@ -1,16 +1,15 @@
 {
   "name": "griller",
   "license": "MIT",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "private": false,
   "repository": {
     "url": "https://github.com/mvriu5/griller"
   },
   "homepage": "https://griller.ahsmus.com",
-  "main": "src/component/toast.tsx",
+  "main": "src/component/toaster.tsx",
   "exports": {
-    "./toast": "./src/component/toast.tsx",
-    "./toaster": "./src/component/toaster.tsx"
+    ".": "./src/component/toaster.tsx"
   },
   "scripts": {
     "dev": "next dev",
