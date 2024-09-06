@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {ArrowLeftFromLine, ShieldAlert} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {Button} from "@/lib/button";
@@ -19,7 +19,7 @@ export default function Home() {
     const { addToast } = useToast();
 
     const [title, setTitle] = useState("Toast Component");
-    const [secondTitle, setSecondTitle] = useState("This is a Toast Component!");
+    const [subtitle, setSubtitle] = useState("This is a Toast Component!");
     const [position, setPosition] = useState<Position>("br");
     const [duration, setDuration] = useState(3000);
     const [theme, setTheme] = useState<Theme>("light");
@@ -27,20 +27,20 @@ export default function Home() {
     const [actionButton, setActionButton] = useState(false);
     const [icon, setIcon] = useState(false);
 
-    const generateCode = () => {
-        return `addToast({\n    title: "${title}",\n    secondTitle: "${secondTitle}",\n    icon: ${icon ? "<ShieldAlert size={24} className={\"text-zinc-500\"}/>" : undefined},\n    position: "${position}",\n    duration: ${duration},\n    theme: "${theme}",\n    closeButton: ${closeButton},\n    actionButton: ${actionButton}\n)};`;
-    };
+    const generateCode = useCallback(() => {
+        return `addToast({\n    title: "${title}",\n    secondTitle: "${subtitle}",\n    icon: ${icon ? "<ShieldAlert size={24} className={\"text-zinc-500\"}/>" : undefined},\n    position: "${position}",\n    duration: ${duration},\n    theme: "${theme}",\n    closeButton: ${closeButton},\n    actionButton: ${actionButton}\n)};`;
+    }, [actionButton, closeButton, duration, icon, position, subtitle, theme, title]);
 
     const [code, setCode] = useState<string>(generateCode());
 
     useEffect(() => {
         setCode(generateCode());
-    }, [title, secondTitle, position, duration, theme, closeButton, actionButton, icon]);
+    }, [title, subtitle, position, duration, theme, closeButton, actionButton, icon, generateCode]);
 
     const handleAddToast = () => {
         const toast: Omit<ToastProps, 'id'> = {
             title,
-            secondTitle,
+            subtitle,
             position,
             duration,
             theme,
@@ -62,7 +62,7 @@ export default function Home() {
                 <div className={"flex flex-row items-center space-x-8 border-b border-zinc-200 pb-4"}>
                     <div className={"flex flex-row items-center space-x-2"}>
                         <div className={"rounded-lg p-1 hover:bg-zinc-200 cursor-pointer"}
-                             onClick={() => window.location.href = 'https://griller.ahsmus.com'}
+                             onClick={() => router.back()}
                         >
                             <ArrowLeftFromLine size={20} className={"text-zinc-700"}/>
                         </div>
@@ -91,8 +91,8 @@ export default function Home() {
                                        label={"Second Title"}
                                        preSelectedValue={"This is a Toast Component!"}
                                        size={60}
-                                       value={secondTitle}
-                                       onChange={(e) => setSecondTitle(e.target.value)}
+                                       value={subtitle}
+                                       onChange={(e) => setSubtitle(e.target.value)}
                                 />
                                 <div className={"flex flex-col sm:flex-row sm:space-x-8 space-x-0 space-y-2 sm:space-y-0"}>
                                     <Combobox title={"Position"}

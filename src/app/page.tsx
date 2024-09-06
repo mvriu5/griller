@@ -1,13 +1,14 @@
 "use client";
 
 import {
-    Ban, FlagTriangleRight,
-    FlaskConical,
+    Ban,
+    BookOpen,
+    FlaskRound,
     GitBranch,
     Github,
+    ListPlus,
     MessageSquare,
     ShieldAlert,
-    SquareArrowOutUpRight,
     TriangleAlert
 } from "lucide-react";
 import React from "react";
@@ -16,8 +17,9 @@ import {CopyButton} from "@/lib/copybutton";
 import {Button} from "@/lib/button";
 import {useToast} from "@/component/toaster";
 import {motion} from "framer-motion";
-import Image from "next/image"
 import {useRouter} from "next/navigation";
+import {ToastIcon} from "@/lib/ToastIcon";
+import Link from "next/link";
 
 export default function Home() {
     const { addToast } = useToast();
@@ -26,13 +28,15 @@ export default function Home() {
     return (
         <div className={"flex flex-col space-y-4 p-4 lg:px-[25%] md:py-32 md:px-[15%]"}>
 
-            <div className={"flex flex-row justify-between items-center border-b border-zinc-200 pb-4"}>
-                <div className={"flex flex-row space-x-4 items-center"}>
-                    <Image src={"/logo.png"} width={50} height={50} alt={"logo"}/>
-                    <div className={"flex flex-col space-y-1"}>
-                        <span className={"text-lg text-zinc-700 font-medium"}>Griller</span>
-                        <span className={"hidden sm:block text-sm text-zinc-500"}>A fully customizable React Toast Component</span>
-                    </div>
+            <motion.div className={"flex flex-row justify-between items-center border-b border-zinc-200 pb-4"}
+                        initial={{opacity: 0, filter: 'blur(10px)', y: -100}}
+                        animate={{opacity: 1, filter: 'blur(0px)', y: 0}}
+                        transition={{duration: 1}}
+            >
+                <div className={"flex flex-row space-x-2 items-center"}>
+                    <ToastIcon/>
+                    <span className={"text-zinc-700 font-semibold"}>Griller</span>
+                    <span className={"hidden sm:block text-zinc-500"}>A fully customizable React Toast Component</span>
                 </div>
 
                 <motion.div
@@ -43,34 +47,36 @@ export default function Home() {
                 >
                     <Github/>
                 </motion.div>
-            </div>
+            </motion.div>
 
 
             <motion.div
-                initial={{opacity: 0, filter: 'blur(10px)', y: 50}}
+                initial={{opacity: 0, filter: 'blur(10px)', y: 100}}
                 animate={{opacity: 1, filter: 'blur(0px)', y: 0}}
-                transition={{duration: 0.65}}
+                transition={{duration: 1}}
                 className={"flex flex-col space-y-4"}
             >
                 <div className={"flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:justify-between sm:space-y-0 pb-8"}>
                     <div className={"flex flex-row space-x-2"}>
                         <Button title={"Test"}
-                                icon={<FlagTriangleRight size={15} className={"mr-2"}/>}
+                                icon={<ListPlus size={15} className={"mr-2"}/>}
                                 onClick={() =>
                                     addToast({
                                         icon: <ShieldAlert size={24}/>,
                                         title: 'Toast Notification',
-                                        secondTitle: 'This is the second toast title'
+                                        subtitle: 'This is the second toast title'
                                     }
                                 )}
                                 className={"text-zinc-200 bg-zinc-900 hover:bg-zinc-800 hover:text-zinc-100 py-1.5"}
                         />
-                        <Button title={"Docs"}
-                                icon={<SquareArrowOutUpRight size={16} className={"mr-2"}/>}
-                                className={"py-1.5"}
-                        />
+                        <Link href={"https://www.npmjs.com/package/griller"} passHref>
+                            <Button title={"Docs"}
+                                    icon={<BookOpen size={16} className={"mr-2"}/>}
+                                    className={"py-1.5"}
+                            />
+                        </Link>
                         <Button title={"Lab"}
-                                icon={<FlaskConical size={15} className={"mr-2"}/>}
+                                icon={<FlaskRound size={15} className={"mr-1.5"}/>}
                                 className={"py-1.5"}
                                 onClick={() => router.push('/lab')}
                         />
@@ -98,7 +104,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 position: "tl"
                             })}
                     />
@@ -106,7 +112,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 position: "tc"
                             })}
                     />
@@ -114,7 +120,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 position: "tr"
                             })}
                     />
@@ -122,7 +128,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 position: "bl"
                             })}
                     />
@@ -130,7 +136,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 position: "bc"
                             })}
                     />
@@ -138,7 +144,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 position: "br"
                             })}
                     />
@@ -150,7 +156,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 duration: 1000
                             })}
                     />
@@ -158,7 +164,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 duration: 3000
                             })}
                     />
@@ -166,7 +172,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 duration: 5000
                             })}
                     />
@@ -178,7 +184,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 closeButton: true,
                                 duration: 60000
                             })}
@@ -187,7 +193,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 actionButton: true
                             })}
                     />
@@ -195,7 +201,7 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <ShieldAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 closeButton: true,
                                 duration: 60000,
                                 actionButton: true
@@ -209,14 +215,14 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <TriangleAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                             })}
                     />
                     <Button title={"Dark"}
                             onClick={() => addToast({
                                 icon: <MessageSquare size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                                 theme: "dark",
                             })}
                     />
@@ -228,21 +234,21 @@ export default function Home() {
                             onClick={() => addToast({
                                 icon: <TriangleAlert size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                             })}
                     />
                     <Button title={"Message"}
                             onClick={() => addToast({
                                 icon: <MessageSquare size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                             })}
                     />
                     <Button title={"Branch"}
                             onClick={() => addToast({
                                 icon: <GitBranch size={24}/>,
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                             })}
                     />
                     <Button title={""}
@@ -250,7 +256,7 @@ export default function Home() {
                             className={"py-2"}
                             onClick={() => addToast({
                                 title: 'Toast Notification',
-                                secondTitle: 'This is the second toast title',
+                                subtitle: 'This is the second toast title',
                             })}
                     />
                 </div>
