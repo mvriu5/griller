@@ -1,7 +1,7 @@
 {
   "name": "griller",
   "license": "MIT",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "private": false,
   "repository": {
     "url": "https://github.com/mvriu5/griller"
@@ -20,12 +20,10 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@types/prismjs": "^1.26.4",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.19",
     "lucide-react": "^0.416.0",
     "next": "14.2.5",
-    "prismjs": "^1.29.0",
     "react": "^18",
     "react-dom": "^18",
     "react-syntax-highlighter": "^15.5.0",
@@ -33,7 +31,6 @@
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.6.1",
     "@storybook/addon-essentials": "^8.2.6",
     "@storybook/addon-interactions": "^8.2.6",
     "@storybook/addon-links": "^8.2.6",

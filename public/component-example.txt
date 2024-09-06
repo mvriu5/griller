@@ -1,4 +1,4 @@
-import {Toast} from "griller/toast";
+import {useToast} from "griller";
 
 const { addToast } = useToast();
 

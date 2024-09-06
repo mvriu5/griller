@@ -17,7 +17,7 @@ npm install griller
 First, you need to wrap your application with the `Toaster` component. This component will manage the state and positioning of your toasts.
 
 ```jsx
-import { Toaster } from "griller/toaster";
+import Toaster from "griller";
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
@@ -37,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
 To create a toast, use the `useToast` hook in your component:
 
 ```jsx
-import { Toast } from "griller/toast";
+import {useToast} from "griller";
 
 const { addToast } = useToast();
 
@@ -87,7 +87,7 @@ const { addToast } = useToast();
 Griller allows for extensive customization through custom classnames:
 
 - `titleClassname`
-- `secondTitleClassname`
+- `subtitleClassname`
 - `iconClassname`
 - `closeClassname`
 - `closeDivClassname`

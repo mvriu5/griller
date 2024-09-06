@@ -1,4 +1,4 @@
-import {Toaster} from "griller/toaster";
+import Toaster from "griller";
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
     return (

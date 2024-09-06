@@ -28,7 +28,7 @@ export default function Home() {
     const [icon, setIcon] = useState(false);
 
     const generateCode = useCallback(() => {
-        return `addToast({\n    title: "${title}",\n    secondTitle: "${subtitle}",\n    icon: ${icon ? "<ShieldAlert size={24} className={\"text-zinc-500\"}/>" : undefined},\n    position: "${position}",\n    duration: ${duration},\n    theme: "${theme}",\n    closeButton: ${closeButton},\n    actionButton: ${actionButton}\n)};`;
+        return `addToast({\n    title: "${title}",\n    subtitle: "${subtitle}",\n    icon: ${icon ? "<ShieldAlert size={24} className={\"text-zinc-500\"}/>" : undefined},\n    position: "${position}",\n    duration: ${duration},\n    theme: "${theme}",\n    closeButton: ${closeButton},\n    actionButton: ${actionButton}\n)};`;
     }, [actionButton, closeButton, duration, icon, position, subtitle, theme, title]);
 
     const [code, setCode] = useState<string>(generateCode());
@@ -87,8 +87,8 @@ export default function Home() {
                                        value={title}
                                        onChange={(e) => setTitle(e.target.value)}
                                 />
-                                <Input placeholder={"Second Title"}
-                                       label={"Second Title"}
+                                <Input placeholder={"Subtitle"}
+                                       label={"Subtitle"}
                                        preSelectedValue={"This is a Toast Component!"}
                                        size={60}
                                        value={subtitle}

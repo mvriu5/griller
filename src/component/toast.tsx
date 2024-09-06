@@ -5,7 +5,6 @@ import {X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import clsx, {ClassValue} from "clsx";
 import {twMerge} from "tailwind-merge";
-import {useToast} from "@griller/toaster";
 
 export const cn = (...classes: ClassValue[]) => twMerge(clsx(classes));
 
@@ -52,7 +51,7 @@ interface ToastProps extends HTMLAttributes<HTMLDivElement> {
 
     // custom classnames
     titleClassname?: string;
-    secondTitleClassname?: string;
+    subtitleClassname?: string;
     iconClassname?: string;
     closeClassname?: string;
     closeDivClassname?: string;
@@ -65,7 +64,7 @@ const Toast: React.FC<ToastProps & {
     isPaused: boolean,
 }> = ({
    id, title, subtitle, icon, scale = 1, position = "br", closeButton, actionButton, onAction, actionButtonText,
-   duration = 3000, theme = "light", titleClassname, secondTitleClassname, closeClassname, closeDivClassname,
+   duration = 3000, theme = "light", titleClassname, subtitleClassname, closeClassname, closeDivClassname,
    motionClassname, iconClassname, actionButtonClassname, className, removeToast, isPaused, ...props
 }) => {
 
@@ -166,7 +165,7 @@ const Toast: React.FC<ToastProps & {
                                     {title}
                                 </span>
                                 {subtitle && subtitle.trim() !== "" && (
-                                    <span className={cn("text-xs", theme === "light" ? "text-zinc-400" : "text-zinc-300", secondTitleClassname)}>
+                                    <span className={cn("text-xs", theme === "light" ? "text-zinc-400" : "text-zinc-300", subtitleClassname)}>
                                         {subtitle}
                                     </span>
                                 )}
